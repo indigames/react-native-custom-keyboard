@@ -54,10 +54,6 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CustomKeyboardExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomKeyboardExampleTests.m; sourceTree = "<group>"; };
 		0CD4129A3D99E616BAE1260D /* Pods-CustomKeyboardExample-CustomKeyboardExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboardExample-CustomKeyboardExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-CustomKeyboardExample-CustomKeyboardExampleTests/Pods-CustomKeyboardExample-CustomKeyboardExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1218156E29CBFD9700CBCD23 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		1218157029CBFD9700CBCD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		12858BDA29CC1041004F1DC1 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		12858BDC29CC1041004F1DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12858BE729CC110A004F1DC1 /* KYBD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KYBD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		12858BE929CC110A004F1DC1 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		12858BEB29CC110A004F1DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,24 +119,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1218156D29CBFD9700CBCD23 /* keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				1218156E29CBFD9700CBCD23 /* KeyboardViewController.swift */,
-				1218157029CBFD9700CBCD23 /* Info.plist */,
-			);
-			path = keyboard;
-			sourceTree = "<group>";
-		};
-		12858BD929CC1041004F1DC1 /* KeyboardCustom */ = {
-			isa = PBXGroup;
-			children = (
-				12858BDA29CC1041004F1DC1 /* KeyboardViewController.swift */,
-				12858BDC29CC1041004F1DC1 /* Info.plist */,
-			);
-			path = KeyboardCustom;
-			sourceTree = "<group>";
-		};
 		12858BE829CC110A004F1DC1 /* KYBD Keyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,8 +165,6 @@
 				13B07FAE1A68108700A75B9A /* CustomKeyboardExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CustomKeyboardExampleTests */,
-				1218156D29CBFD9700CBCD23 /* keyboard */,
-				12858BD929CC1041004F1DC1 /* KeyboardCustom */,
 				12858BE829CC110A004F1DC1 /* KYBD Keyboard */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
