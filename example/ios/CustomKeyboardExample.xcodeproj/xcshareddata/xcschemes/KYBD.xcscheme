@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1218156B29CBFD9700CBCD23"
-               BuildableName = "keyboard.appex"
-               BlueprintName = "keyboard"
+               BlueprintIdentifier = "12858BE629CC110A004F1DC1"
+               BuildableName = "KYBD.appex"
+               BlueprintName = "KYBD"
                ReferencedContainer = "container:CustomKeyboardExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

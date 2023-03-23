@@ -43,12 +43,22 @@ target 'CustomKeyboardExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  target 'keyboard' do
+    inherit! :complete
+  end
+
   target 'CustomKeyboardExampleTests' do
     inherit! :complete
     # Pods for testing
   end
 
   post_install do |installer|
+		installer.pods_project.targets.each do |target|
+			target.build_configurations.each do |config|
+				config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "No"
+				config.build_settings["DEVELOPMENT_TEAM"] = "R2TWY42MN5"
+      end
+    end
     react_native_post_install(
       installer,
       # Set `mac_catalyst_enabled` to `true` in order to apply patches
