@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import KeyboardKit
 
 /**
  This autocomplete provider is used in the non-pro demos, to

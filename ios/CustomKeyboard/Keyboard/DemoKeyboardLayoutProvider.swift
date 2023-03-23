@@ -6,8 +6,6 @@
 //  Copyright © 2022-2023 Daniel Saidi. All rights reserved.
 //
 
-import KeyboardKit
-
 /**
  This demo-specific appearance inherits the standard one and
  adds a locale button next to space.

@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* CustomKeyboardExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CustomKeyboardExampleTests.m */; };
+		124094A729CC552000C357FF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124094A629CC552000C357FF /* KeyboardViewController.swift */; };
 		12858BEE29CC110A004F1DC1 /* KYBD.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 12858BE729CC110A004F1DC1 /* KYBD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		12F50CC329CC289800603AB2 /* DemoKeyboardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F50CBE29CC289700603AB2 /* DemoKeyboardLayoutProvider.swift */; };
-		12F50CC429CC289800603AB2 /* FakeAutocompleteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F50CBF29CC289800603AB2 /* FakeAutocompleteProvider.swift */; };
-		12F50CC529CC289800603AB2 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F50CC029CC289800603AB2 /* KeyboardViewController.swift */; };
-		12F50CC629CC289800603AB2 /* DemoKeyboardAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F50CC129CC289800603AB2 /* DemoKeyboardAppearance.swift */; };
-		12F50CC729CC289800603AB2 /* DemoKeyboardActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F50CC229CC289800603AB2 /* DemoKeyboardActionHandler.swift */; };
 		12F50CCC29CC295C00603AB2 /* KeyboardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12F50CCB29CC295C00603AB2 /* KeyboardKit */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -59,13 +55,10 @@
 		00E356EE1AD99517003FC87E /* CustomKeyboardExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomKeyboardExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CustomKeyboardExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomKeyboardExampleTests.m; sourceTree = "<group>"; };
+		124094A529CC551F00C357FF /* KYBD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KYBD-Bridging-Header.h"; sourceTree = "<group>"; };
+		124094A629CC552000C357FF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		12858BE729CC110A004F1DC1 /* KYBD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KYBD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		12858BEB29CC110A004F1DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		12F50CBE29CC289700603AB2 /* DemoKeyboardLayoutProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoKeyboardLayoutProvider.swift; sourceTree = "<group>"; };
-		12F50CBF29CC289800603AB2 /* FakeAutocompleteProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAutocompleteProvider.swift; sourceTree = "<group>"; };
-		12F50CC029CC289800603AB2 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = ../../../ios/KeyboardKit/Demo/Keyboard/KeyboardViewController.swift; sourceTree = "<group>"; };
-		12F50CC129CC289800603AB2 /* DemoKeyboardAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoKeyboardAppearance.swift; sourceTree = "<group>"; };
-		12F50CC229CC289800603AB2 /* DemoKeyboardActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoKeyboardActionHandler.swift; sourceTree = "<group>"; };
 		12F50CCA29CC294B00603AB2 /* KeyboardKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeyboardKit; path = ../../ios/KeyboardKit; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CustomKeyboardExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboardExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CustomKeyboardExample/AppDelegate.h; sourceTree = "<group>"; };
@@ -135,12 +128,9 @@
 		12858BE829CC110A004F1DC1 /* KYBD */ = {
 			isa = PBXGroup;
 			children = (
-				12F50CC229CC289800603AB2 /* DemoKeyboardActionHandler.swift */,
-				12F50CC129CC289800603AB2 /* DemoKeyboardAppearance.swift */,
-				12F50CBE29CC289700603AB2 /* DemoKeyboardLayoutProvider.swift */,
-				12F50CBF29CC289800603AB2 /* FakeAutocompleteProvider.swift */,
-				12F50CC029CC289800603AB2 /* KeyboardViewController.swift */,
 				12858BEB29CC110A004F1DC1 /* Info.plist */,
+				124094A629CC552000C357FF /* KeyboardViewController.swift */,
+				124094A529CC551F00C357FF /* KYBD-Bridging-Header.h */,
 			);
 			path = KYBD;
 			sourceTree = "<group>";
@@ -309,6 +299,7 @@
 					};
 					12858BE629CC110A004F1DC1 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1420;
@@ -563,11 +554,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12F50CC729CC289800603AB2 /* DemoKeyboardActionHandler.swift in Sources */,
-				12F50CC329CC289800603AB2 /* DemoKeyboardLayoutProvider.swift in Sources */,
-				12F50CC629CC289800603AB2 /* DemoKeyboardAppearance.swift in Sources */,
-				12F50CC429CC289800603AB2 /* FakeAutocompleteProvider.swift in Sources */,
-				12F50CC529CC289800603AB2 /* KeyboardViewController.swift in Sources */,
+				124094A729CC552000C357FF /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +641,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -680,6 +668,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "KYBD/KYBD-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -693,6 +682,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -719,6 +709,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "KYBD/KYBD-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -20,3 +20,11 @@ const CustomKeyboard = NativeModules.CustomKeyboard
 export function multiply(a: number, b: number): Promise<number> {
   return CustomKeyboard.multiply(a, b);
 }
+
+export function isEnabled(): Promise<boolean> {
+  return CustomKeyboard.isEnabled();
+}
+
+export function isActivated(): Promise<boolean> {
+  return CustomKeyboard.isActivated();
+}

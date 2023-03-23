@@ -1,8 +1,24 @@
-import * as React from 'react';
-
-import { StyleSheet, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
+import {} from 'react-native-custom-keyboard';
 
 export default function App() {
+  const [eventListener, setEventListener] = useState(null);
+  useEffect(() => {
+    registerKeyboardEvents();
+  }, []);
+
+  const registerKeyboardEvents = () => {
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
