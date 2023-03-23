@@ -4,17 +4,24 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
 Pod::Spec.new do |s|
-  s.name         = "react-native-custom-keyboard"
-  s.version      = package["version"]
-  s.summary      = package["description"]
-  s.homepage     = package["homepage"]
-  s.license      = package["license"]
-  s.authors      = package["author"]
+  s.name = "react-native-custom-keyboard"
+  s.version = package["version"]
+  s.summary = package["description"]
+  s.homepage = package["homepage"]
+  s.license = package["license"]
+  s.authors = package["author"]
 
-  s.platforms    = { :ios => "11.0" }
-  s.source       = { :git => "https://github.com/trungnhm1998/react-native-custom-keyboard.git", :tag => "#{s.version}" }
+  s.platforms = { :ios => "14.0" }
+  s.source = {
+    :git => "https://github.com/trungnhm1998/react-native-custom-keyboard.git",
+    :tag => "#{s.version}", :submodules => true
+  }
 
-  s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.ios.deployment_target = '14.0'
+  s.macos.deployment_target = '11.0'
+  s.tvos.deployment_target = '14.0'
+
+  s.source_files = "ios/CustomKeyboard/**/*.{h,m,mm,swift}", "ios/KeyboardKit/Sources/KeyboardKit/**/*.{swift}"
 
   s.dependency "React-Core"
 
