@@ -30,6 +30,7 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     ) -> KeyboardAction.GestureAction? {
         let standard = super.action(for: gesture, on: action)
         switch gesture {
+        case .press: return pressAction(for: action) ?? standard
         case .longPress: return longPressAction(for: action) ?? standard
         case .release: return releaseAction(for: action) ?? standard
         default: return standard
@@ -38,6 +39,17 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     
     
     // MARK: - Custom actions
+    
+    private var pressedCharacter: String = "";
+    
+    func pressAction(for action: KeyboardAction) -> KeyboardAction.GestureAction? {
+        switch action {
+        case .character(let character):
+            pressedCharacter = character
+            return nil
+        default: return nil
+        }
+    }
     
     func longPressAction(for action: KeyboardAction) -> KeyboardAction.GestureAction? {
         switch action {
@@ -48,6 +60,11 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     
     func releaseAction(for action: KeyboardAction) -> KeyboardAction.GestureAction? {
         switch action {
+        case .character(let character):
+            if (character == pressedCharacter) {
+                print("DemoKeyboardActionHandler::releaseAction::just pressed character \(pressedCharacter)")
+            }
+            return nil
         case .image(_, _, let imageName): return { [weak self] _ in self?.copyImage(named: imageName) }
         default: return nil
         }

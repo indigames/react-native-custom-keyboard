@@ -20,13 +20,25 @@ import SwiftUI
  access to features like haptic feedback.
  */
 open class CustomKeyboardViewController: KeyboardInputViewController {
-
+    var currentWord: String? {
+        var lastWord: String?
+        if let stringBeforeCursor = textDocumentProxy.documentContextBeforeInput {
+            stringBeforeCursor.enumerateSubstrings(in: stringBeforeCursor.startIndex..., options: .byWords) {
+                word, _, _, _ in
+                if let word = word {
+                    lastWord = word
+                }
+            }
+        }
+        return lastWord
+    }
+    let ck: CustomKeyboard = CustomKeyboard()
     /**
      This function is called when the controller loads. Here,
      we make demo-specific service configurations.
      */
     open override func viewDidLoad() {
-
+        NSLog("CustomKeyboardViewController::viewDidLoad")
         /// 💡 Setup a custom keyboard locale.
         ///
         /// Changing locale without using KeyboardKit Pro or
@@ -63,7 +75,7 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
         /// see how the autocomplete changes. Have a look at
         /// the KeyboardPro demos to see how a real provider
         /// behaves as you type or move the cursor.
-        autocompleteProvider = FakeAutocompleteProvider()
+        // autocompleteProvider = FakeAutocompleteProvider()
 
         /// 💡 Setup a demo-specific keyboard appearance.
         ///
@@ -106,5 +118,24 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
         /// have to override this function to setup a custom
         /// view, which we do in `KeyboardCustom`.
         setup { SystemKeyboard(controller: $0) }
+    }
+
+    override open func textDidChange(_ textInput: UITextInput?) {
+        print("textDidChange \(textInput.debugDescription)")
+        getLastEnteredCharacter()
+        super.textDidChange(textInput)
+    }
+    
+    func getLastEnteredCharacter() {
+        if let previousCharacter = characterBeforeCursor() {
+            print("getLastEnteredCharacter \(previousCharacter)")
+        }
+    }
+    
+    func characterBeforeCursor() -> String? {
+        guard let character = textDocumentProxy.documentContextBeforeInput?.last else {
+          return nil
+        }
+        return String(character)
     }
 }

@@ -6,6 +6,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSLog(@"didFinishLaunchingWithOptions");
   self.moduleName = @"CustomKeyboardExample";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
