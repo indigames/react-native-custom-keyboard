@@ -11,23 +11,24 @@ import UIKit
 /**
  This demo-specific action handler inherits the standard one
  and adds demo-specific logic to it.
-
+ 
  ``KeyboardViewController`` registers this class to show you
  how you can set up a custom keyboard action handler.
-
+ 
  If you add `image` actions to the keyboard, this class will
  copy any tapped image to the pasteboard and save it to your
  photo album when it's long presed.
  */
 class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
-
-
+    var input: String = "";
+    
     // MARK: - Overrides
     
     override func action(
         for gesture: KeyboardGesture,
         on action: KeyboardAction
     ) -> KeyboardAction.GestureAction? {
+        print("DemoKeyboardActionHandler::action::gesture(\(gesture)) action(\(action))")
         let standard = super.action(for: gesture, on: action)
         switch gesture {
         case .press: return pressAction(for: action) ?? standard
@@ -44,6 +45,12 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     
     func pressAction(for action: KeyboardAction) -> KeyboardAction.GestureAction? {
         switch action {
+        case .space:
+            pressedCharacter = " "
+            return nil
+        case .emoji(let emoji):
+            pressedCharacter = emoji.char
+            return nil
         case .character(let character):
             pressedCharacter = character
             return nil
@@ -60,10 +67,17 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     
     func releaseAction(for action: KeyboardAction) -> KeyboardAction.GestureAction? {
         switch action {
+        case .dismissKeyboard:
+            handleDismissKeyboard()
+            return nil
+        case .emoji(let emoji):
+            handleReleaseAction(with: emoji.char)
+            return nil
+        case .space:
+            handleReleaseAction(with: " ")
+            return nil
         case .character(let character):
-            if (character == pressedCharacter) {
-                print("DemoKeyboardActionHandler::releaseAction::just pressed character \(pressedCharacter)")
-            }
+            handleReleaseAction(with: character)
             return nil
         case .image(_, _, let imageName): return { [weak self] _ in self?.copyImage(named: imageName) }
         default: return nil
@@ -71,10 +85,37 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
     }
     
     
+    
     // MARK: - Functions
+    func handleReleaseAction(with releasedCharacter: String) {
+        if (pressedCharacter == releasedCharacter) {
+            print("DemoKeyboardActionHandler::releaseAction::just pressed character \(pressedCharacter)")
+            self.input.append(pressedCharacter)
+        }
+    }
+    
+    func handleDismissKeyboard() {
+        alert("Dissmising keyboard and will sync input repo with \"\(self.input)\"")
+        self.syncInputToUserDefaults()
+    }
+    
+    public func syncInputToUserDefaults() {
+        if self.input == "" {
+            self.alert("Skip sync due to empty input")
+            return
+        }
+        guard let viewController = keyboardController as? CustomKeyboardViewController else {
+            self.alert("Cannot communitcate with view controller")
+            return
+        }
+        
+        viewController.syncInputToUserDefaults(self.input)
+        
+        self.input = "";
+    }
     
     func alert(_ message: String) {
-        print("Implement alert functionality if you want, or just place a breakpoint here.")
+        print("alert: \(message)")
     }
     
     func copyImage(named imageName: String) {
@@ -124,7 +165,7 @@ private extension UIImage {
 private class ImageService: NSObject {
     
     public typealias Completion = (Error?) -> Void
-
+    
     public static private(set) var `default` = ImageService()
     
     private var completions = [Completion]()

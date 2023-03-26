@@ -57,6 +57,8 @@
 		00E356F21AD99517003FC87E /* CustomKeyboardExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomKeyboardExampleTests.m; sourceTree = "<group>"; };
 		124094A529CC551F00C357FF /* KYBD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KYBD-Bridging-Header.h"; sourceTree = "<group>"; };
 		124094A629CC552000C357FF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		124094E129CEA7BF00C357FF /* CustomKeyboardExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = CustomKeyboardExample.entitlements; path = CustomKeyboardExample/CustomKeyboardExample.entitlements; sourceTree = "<group>"; };
+		124094E229CEA7CE00C357FF /* KYBD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KYBD.entitlements; sourceTree = "<group>"; };
 		12858BE729CC110A004F1DC1 /* KYBD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KYBD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		12858BEB29CC110A004F1DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12F50CCA29CC294B00603AB2 /* KeyboardKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeyboardKit; path = ../../ios/KeyboardKit; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		12858BE829CC110A004F1DC1 /* KYBD */ = {
 			isa = PBXGroup;
 			children = (
+				124094E229CEA7CE00C357FF /* KYBD.entitlements */,
 				12858BEB29CC110A004F1DC1 /* Info.plist */,
 				124094A629CC552000C357FF /* KeyboardViewController.swift */,
 				124094A529CC551F00C357FF /* KYBD-Bridging-Header.h */,
@@ -146,6 +149,7 @@
 		13B07FAE1A68108700A75B9A /* CustomKeyboardExample */ = {
 			isa = PBXGroup;
 			children = (
+				124094E129CEA7BF00C357FF /* CustomKeyboardExample.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -645,6 +649,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = KYBD/KYBD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -686,6 +691,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = KYBD/KYBD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -723,6 +729,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboardExample/CustomKeyboardExample.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R2TWY42MN5;
 				ENABLE_BITCODE = NO;
@@ -758,6 +765,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboardExample/CustomKeyboardExample.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R2TWY42MN5;
 				INFOPLIST_FILE = CustomKeyboardExample/Info.plist;

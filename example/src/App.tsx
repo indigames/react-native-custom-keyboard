@@ -7,17 +7,34 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Text,
+  Button,
 } from 'react-native';
-import {} from 'react-native-custom-keyboard';
+import { CustomKeyboard } from 'react-native-custom-keyboard';
 
 export default function App() {
-  const [eventListener, setEventListener] = useState(null);
-  useEffect(() => {
-    registerKeyboardEvents();
-  }, []);
+  console.log("App Started");
+  const [input, setInput] = useState('');
 
-  const registerKeyboardEvents = () => {
-  };
+  useEffect(() => {
+    var subscription = CustomKeyboard.events().characterEntered((character) => {
+      console.log('character', character);
+      setInput(input + character);
+    });
+
+    var keyboardHideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      console.log('keyboardDidHide');
+    });
+    return () => {
+      keyboardHideSubscription.remove();
+      subscription.remove();
+    }
+  })
+
+  const syncInput = () => {
+    console.log('syncing input from native');
+    CustomKeyboard.syncNativeInput();
+  }
 
   return (
     <KeyboardAvoidingView
@@ -25,7 +42,9 @@ export default function App() {
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
+          <Text>Result: {input}</Text>
           <TextInput placeholder="Input" style={styles.textInput} />
+          <Button title='Sync input' onPress={syncInput}/>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

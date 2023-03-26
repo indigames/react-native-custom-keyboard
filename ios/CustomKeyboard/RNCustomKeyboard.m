@@ -1,6 +1,6 @@
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_MODULE(CustomKeyboard, NSObject)
+@interface RCT_EXTERN_MODULE(RNCustomKeyboard, NSObject)
 
 RCT_EXTERN_METHOD(isEnabled:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

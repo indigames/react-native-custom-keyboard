@@ -22,7 +22,8 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '14.0'
 
   s.source_files = "ios/CustomKeyboard/**/*.{h,m,mm,swift}", "ios/KeyboardKit/Sources/KeyboardKit/**/*.{swift}"
-
+  s.preserve_path = "${POD_ROOT}/CustomKeyboard/CustomKeyboard-Bridging-Header.h"
+  s.xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => '${POD_ROOT}//Users/trungnhm1998/Projects/apps/react-native-custom-keyboard/ios/CustomKeyboard/CustomKeyboard-Bridging-Header.h' }
   s.dependency "React-Core"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
