@@ -8,7 +8,8 @@ public let HOST_URL_SCHEME_INFO_PLIST_KEY = "HostAppURLScheme"
 
 // MARK: Error Messages
 
-public let NO_URL_TYPES_ERROR_MESSAGE = "You have not defined CFBundleURLTypes in your Info.plist"
+public let NO_URL_TYPES_ERROR_MESSAGE = "You have not defined CFBundleURLName in your Info.plist"
+public let NO_BUNDLE_ID_ERROR_MESSAGE = "You have not defined CFBundleURLSchemes in your Info.plist"
 public let NO_URL_SCHEMES_ERROR_MESSAGE = "You have not defined CFBundleURLSchemes in your Info.plist"
 public let NO_SCHEME_ERROR_MESSAGE = "You have not defined a scheme under CFBundleURLSchemes in your Info.plist"
 public let NO_APP_GROUP_ERROR = "Failed to get App Group User Defaults. Did you set up an App Group on your App and Share Extension?"

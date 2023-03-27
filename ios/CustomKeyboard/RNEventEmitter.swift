@@ -93,18 +93,18 @@ class RNEventEmitter: RCTEventEmitter {
     }
     
     func getInputTextFromUserDefaults() -> String? {
-        // check if we are in the same app group through deep linking
-        guard let bundleId = Bundle.main.bundleIdentifier else { return nil }
-        // group.net.test.group
-//        guard let userDefaults = UserDefaults(suiteName: "group.\(bundleId)") else {
-        guard let userDefaults = UserDefaults(suiteName: "group.net.test.group") else {
+        guard let bundleId = Bundle.main.bundleIdentifier else {
+            print("RNEventEmitter::Error: \(NO_BUNDLE_ID_ERROR_MESSAGE)")
+            return nil
+        }
+        
+        let groupId = "group.\(bundleId)"
+        
+        guard let userDefaults = UserDefaults(suiteName: groupId) else {
             print("RNEventEmitter::Error: \(NO_APP_GROUP_ERROR)")
             return nil
         }
         
-        print(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.test.group"))
-        print("getting data from \(userDefaults) with (group.\(bundleId)")
-        print(userDefaults.dictionaryRepresentation())
         guard let input = userDefaults.object(forKey: USER_DEFAULTS_KEY) as? String else {
             print("RNEventEmitter::Error: \(NO_INPUT_DATA_ERROR)")
             return nil

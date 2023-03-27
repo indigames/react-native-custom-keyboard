@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>HostAppBundleIdentifier</key>
-	<string>net.indigames.kybd</string>
+	<string>net.indigames.example</string>
 	<key>HostAppURLScheme</key>
 	<string>kybddeeplink</string>
 	<key>NSExtension</key>

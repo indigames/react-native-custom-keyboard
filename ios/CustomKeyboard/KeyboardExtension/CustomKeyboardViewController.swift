@@ -37,17 +37,13 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
             print(NO_INFO_PLIST_INDENTIFIER_ERROR)
             return
         }
-//        guard let userDefaults = UserDefaults(suiteName: "W2MHU9C35Z.group.\(hostAppId)") else {
-//        UserDefaults.standard.dictionaryRepresentation()
-//        guard let userDefaults = UserDefaults(suiteName: "group.\(hostAppId)") else {
-        guard let userDefaults = UserDefaults(suiteName: "group.net.test.group") else {
+        
+        let groupId = "group.\(hostAppId)";
+        guard let userDefaults = UserDefaults(suiteName: groupId) else {
             print(NO_APP_GROUP_ERROR)
             return
         }
         
-        print(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.test.group"))
-        print(userDefaults)
-        print("set group.\(hostAppId) userDefaults[\(USER_DEFAULTS_KEY)] with: \"\(input)\"")
         userDefaults.set(input, forKey: USER_DEFAULTS_KEY)
         userDefaults.synchronize()
     }
