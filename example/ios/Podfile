@@ -56,7 +56,7 @@ target 'CustomKeyboardExample' do
 		installer.pods_project.targets.each do |target|
 			target.build_configurations.each do |config|
 				config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "No"
-				config.build_settings["DEVELOPMENT_TEAM"] = "R2TWY42MN5"
+				config.build_settings["DEVELOPMENT_TEAM"] = "W2MHU9C35Z" # "R2TWY42MN5" # W2MHU9C35Z
       end
     end
     react_native_post_install(
