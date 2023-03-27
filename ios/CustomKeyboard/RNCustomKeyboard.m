@@ -2,10 +2,13 @@
 
 @interface RCT_EXTERN_MODULE(RNCustomKeyboard, NSObject)
 
-RCT_EXTERN_METHOD(isEnabled:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(getEnableState:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(isActivated:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(getActiveState:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getFullAccessState:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
 + (BOOL)requiresMainQueueSetup

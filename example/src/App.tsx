@@ -15,8 +15,15 @@ import { CustomKeyboard } from 'react-native-custom-keyboard';
 export default function App() {
   console.log("App Started");
   const [input, setInput] = useState('');
+  const [isKeyboardEnabled, setIsKeyboardEnabled] = useState(false);
+  const [isKeyboardActive, setIsKeyboardActive] = useState(false);
+  const [isKeyboardHasFullAccess, setIsKeyboardHasFullAccess] = useState(false);
 
   useEffect(() => {
+    CustomKeyboard.state().getActiveState().then(setIsKeyboardActive);
+    CustomKeyboard.state().getEnableState().then(setIsKeyboardEnabled);
+    CustomKeyboard.state().getFullAccessState().then(setIsKeyboardHasFullAccess);
+
     var subscription = CustomKeyboard.events().characterEntered((character) => {
       console.log('character', character);
       setInput(input + character);
@@ -42,6 +49,9 @@ export default function App() {
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
+          <Text>Keyboard enable: {<Text style={{ color: isKeyboardEnabled ? '#0f0' : '#f00'}}>{isKeyboardEnabled ? "is enabled" : "disabled"}</Text>}</Text>
+          <Text>Keyboard active: {<Text style={{ color: isKeyboardActive ? '#0f0' : '#f00'}}>{isKeyboardActive ? "activated" : "not active"}</Text>}</Text>
+          <Text>Keyboard has full access: {<Text style={{ color: isKeyboardHasFullAccess ? '#0f0' : '#f00'}}>{isKeyboardHasFullAccess ? "has full access" : "hasn't have full access"}</Text>}</Text>
           <Text>Result: {input}</Text>
           <TextInput placeholder="Input" style={styles.textInput} />
           <Button title='Sync input' onPress={syncInput}/>

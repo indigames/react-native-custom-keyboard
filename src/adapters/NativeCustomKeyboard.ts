@@ -1,9 +1,9 @@
 import { NativeModules } from 'react-native';
 
 interface NativeCustomeKeyboardModule {
-  isKeyboardEnable(): Promise<boolean>;
-  isKeyboardActive(): Promise<boolean>;
-  isKeyboardHasFullAccess(): Promise<boolean>;
+  getEnableState(): Promise<boolean>;
+  getActiveState(): Promise<boolean>;
+  getFullAccessState(): Promise<boolean>;
 }
 
 export class NativeCustomKeyboard {
@@ -12,15 +12,15 @@ export class NativeCustomKeyboard {
     this.nativeCommandsModule = NativeModules.RNCustomKeyboard;
   }
 
-  public isKeyboardEnable(): Promise<boolean> {
-    return this.nativeCommandsModule.isKeyboardEnable();
+  public getEnableState(): Promise<boolean> {
+    return this.nativeCommandsModule.getEnableState();
   }
 
-  public isKeyboardActive(): Promise<boolean> {
-    return this.nativeCommandsModule.isKeyboardActive();
+  public getActiveState(): Promise<boolean> {
+    return this.nativeCommandsModule.getActiveState();
   }
 
-  public isKeyboardHasFullAccess(): Promise<boolean> {
-    return this.nativeCommandsModule.isKeyboardHasFullAccess();
+  public getFullAccessState(): Promise<boolean> {
+    return this.nativeCommandsModule.getFullAccessState();
   }
 }

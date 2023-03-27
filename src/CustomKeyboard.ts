@@ -1,14 +1,15 @@
+import { NativeCustomKeyboard } from './adapters/NativeCustomKeyboard';
 import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
 import { EventsRegistry } from './events/EventsRegistry';
 
 export class CustomKeyboardRoot {
   private readonly nativeEventsReceiver: NativeEventsReceiver;
   private readonly eventsRegistry: EventsRegistry;
-  // private readonly nativeCommandsSender: NativeCommandsSender;
+  private readonly nativeCustomKeyboard: NativeCustomKeyboard;
 
   constructor() {
     this.nativeEventsReceiver = new NativeEventsReceiver();
-    // this.nativeCommandsSender = new NativeCommandsSender();
+    this.nativeCustomKeyboard = new NativeCustomKeyboard();
     this.eventsRegistry = new EventsRegistry(this.nativeEventsReceiver);
   }
 
@@ -18,5 +19,9 @@ export class CustomKeyboardRoot {
 
   public events(): EventsRegistry {
     return this.eventsRegistry;
+  }
+
+  public state(): NativeCustomKeyboard {
+    return this.nativeCustomKeyboard;
   }
 }

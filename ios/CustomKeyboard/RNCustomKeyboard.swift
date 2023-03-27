@@ -1,10 +1,20 @@
 @objc(RNCustomKeyboard)
 class RNCustomKeyboard: NSObject {
-   @objc func isEnabled(_ resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock){
-        resolve(false)
+    @objc func getEnableState(_ resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock){
+        let keyboardBundleId = "\(Bundle.main.bundleIdentifier!).*"
+        print("keyboardBundleId \(keyboardBundleId)")
+        resolve(KeyboardEnabledState(bundleId: keyboardBundleId).isKeyboardEnabled)
     }
     
-    @objc func isActivated(_ resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock){
-        resolve(false)
+    @objc func getActiveState(_ resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock){
+        let keyboardBundleId = "\(Bundle.main.bundleIdentifier!).*"
+        print("keyboardBundleId \(keyboardBundleId)")
+        resolve(KeyboardEnabledState(bundleId: keyboardBundleId).isKeyboardActive)
+    }
+    
+    @objc func getFullAccessState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+        let keyboardBundleId = "\(Bundle.main.bundleIdentifier!).*"
+        print("keyboardBundleId \(keyboardBundleId)")
+        resolve(KeyboardEnabledState(bundleId: keyboardBundleId).isFullAccessEnabled)
     }
 }
