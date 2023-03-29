@@ -15,6 +15,7 @@ public let NO_SCHEME_ERROR_MESSAGE = "You have not defined a scheme under CFBund
 public let NO_APP_GROUP_ERROR = "Failed to get App Group User Defaults. Did you set up an App Group on your App and Share Extension?"
 public let NO_INFO_PLIST_INDENTIFIER_ERROR = "You haven't defined \(HOST_APP_IDENTIFIER_INFO_PLIST_KEY) in your Share Extension's Info.plist"
 public let NO_INFO_PLIST_URL_SCHEME_ERROR = "You haven't defined \(HOST_URL_SCHEME_INFO_PLIST_KEY) in your Share Extension's Info.plist"
+public let NO_INPUT_ERROR = "NO_INPUT_ERROR"
 public let COULD_NOT_FIND_STRING_ERROR = "Couldn't find string"
 public let COULD_NOT_FIND_URL_ERROR = "Couldn't find url"
 public let COULD_NOT_FIND_IMG_ERROR = "Couldn't find image"

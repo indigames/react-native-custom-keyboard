@@ -32,19 +32,36 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
         setup(with: DemoKeyboardView(controller: self, actionHandler: self.customActionHandler!))
     }
     
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        syncInputToUserDefaults(customActionHandler?.input ?? "")
+    }
+    
     public func syncInputToUserDefaults(_ input: String) {
+        if input == "" {
+            print(NO_INPUT_ERROR)
+            return
+        }
+        
         guard let hostAppId = self.hostAppId else {
             print(NO_INFO_PLIST_INDENTIFIER_ERROR)
             return
         }
         
-        let groupId = "group.\(hostAppId)";
-        guard let userDefaults = UserDefaults(suiteName: groupId) else {
+        guard let userDefaults = UserDefaults(suiteName: hostAppId) else {
             print(NO_APP_GROUP_ERROR)
             return
         }
         
-        userDefaults.set(input, forKey: USER_DEFAULTS_KEY)
+        var allInput = input
+        if let containerInput = userDefaults.object(forKey: USER_DEFAULTS_KEY) as? String {
+            allInput.append(containerInput)
+        } else {
+            print("CustomKeyboardViewController::warning: \(NO_INPUT_DATA_ERROR) (It is safe to skip this warning)")
+        }
+        
+        // print("CustomKeyboardViewController::sync input container \(userDefaults) with key \(USER_DEFAULTS_KEY) and value \(allInput)")
+        userDefaults.set(allInput, forKey: USER_DEFAULTS_KEY)
         userDefaults.synchronize()
     }
 }

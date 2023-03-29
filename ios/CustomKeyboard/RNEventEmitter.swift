@@ -1,3 +1,4 @@
+
 @objc(RNEventEmitter)
 class RNEventEmitter: RCTEventEmitter {
     
@@ -93,24 +94,30 @@ class RNEventEmitter: RCTEventEmitter {
     }
     
     func getInputTextFromUserDefaults() -> String? {
-        guard let bundleId = Bundle.main.bundleIdentifier else {
-            print("RNEventEmitter::Error: \(NO_BUNDLE_ID_ERROR_MESSAGE)")
+        guard let containerId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String else {
+            print("RNEventEmitter::Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
             return nil
         }
         
-        let groupId = "group.\(bundleId)"
-        
-        guard let userDefaults = UserDefaults(suiteName: groupId) else {
+        guard let userDefaults = UserDefaults(suiteName: containerId) else {
             print("RNEventEmitter::Error: \(NO_APP_GROUP_ERROR)")
             return nil
         }
         
         guard let input = userDefaults.object(forKey: USER_DEFAULTS_KEY) as? String else {
             print("RNEventEmitter::Error: \(NO_INPUT_DATA_ERROR)")
+            userDefaults.set("", forKey: USER_DEFAULTS_KEY)
+            userDefaults.synchronize()
             return nil
         }
         
-        userDefaults.removeObject(forKey: USER_DEFAULTS_KEY)
+        if input == "" {
+            print("RNEventEmitter::Error: \(NO_INPUT_DATA_ERROR)")
+            return nil
+        }
+        
+        userDefaults.set("", forKey: USER_DEFAULTS_KEY)
+        userDefaults.synchronize()
         return input
     }
     

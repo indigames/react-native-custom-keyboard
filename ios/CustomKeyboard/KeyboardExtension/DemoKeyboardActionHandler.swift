@@ -20,7 +20,7 @@ import UIKit
  photo album when it's long presed.
  */
 class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
-    var input: String = "";
+    public var input: String = "";
     
     // MARK: - Overrides
     
