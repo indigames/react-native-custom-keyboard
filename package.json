@@ -1,6 +1,6 @@
 {
   "name": "react-native-custom-keyboard",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -49,7 +49,7 @@
   },
   "homepage": "https://github.com/trungnhm1998/react-native-custom-keyboard#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "http://localhost:4873/"
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.2.2",
