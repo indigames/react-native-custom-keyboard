@@ -19,7 +19,22 @@ class CustomKeyboardModule(reactContext: ReactApplicationContext) :
     promise.resolve(a * b)
   }
 
+  @ReactMethod
+  fun getActiveState(promise: Promise) {
+    promise.resolve(false)
+  }
+
+  @ReactMethod
+  fun getEnableState(promise: Promise) {
+    promise.resolve(false)
+  }
+
+  @ReactMethod
+  fun getFullAccessState(promise: Promise) {
+    promise.resolve(false)
+  }
+
   companion object {
-    const val NAME = "CustomKeyboard"
+    const val NAME = "RNCustomKeyboard"
   }
 }
