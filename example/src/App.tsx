@@ -9,6 +9,7 @@ import {
   Keyboard,
   Text,
   Button,
+  Linking,
 } from 'react-native';
 import { CustomKeyboard } from 'react-native-custom-keyboard';
 
@@ -43,6 +44,14 @@ export default function App() {
     CustomKeyboard.syncNativeInput();
   }
 
+  const openKeyboardSettings = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('App-Prefs:root=General&path=Keyboard');
+    } else {
+      Linking.sendIntent('android.settings.INPUT_METHOD_SETTINGS');
+    }
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -54,6 +63,7 @@ export default function App() {
           <Text>Keyboard has full access: {<Text style={{ color: isKeyboardHasFullAccess ? '#0f0' : '#f00'}}>{isKeyboardHasFullAccess ? "has full access" : "hasn't have full access"}</Text>}</Text>
           <Text>Result: {input}</Text>
           <TextInput placeholder="Input" style={styles.textInput} />
+          <Button title='Open keyboard settings' onPress={openKeyboardSettings}/>
           <Button title='Sync input' onPress={syncInput}/>
         </View>
       </TouchableWithoutFeedback>
