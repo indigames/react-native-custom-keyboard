@@ -231,6 +231,15 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
         smartbarManager.onFinishInputView()
     }
 
+    override fun onWindowHidden() {
+        val preferences = FlorisBoard.getInstance().baseContext.getSharedPreferences("net.indigames.customkeyboard", Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("input", this.inputText)
+        editor.apply()
+        this.inputText = ""
+        super.onWindowHidden()
+    }
+
     override fun onWindowShown() {
         keyboardViews[KeyboardMode.CHARACTERS]?.updateVisibility()
     }
@@ -498,6 +507,8 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
         ic?.commitText(KeyCode.SPACE.toChar().toString(), 1)
     }
 
+    private var inputText: String = ""
+    
     /**
      * Main logic point for sending a key press. Different actions may occur depending on the given
      * [KeyData]. This method handles all key press send events, which are text based. For media
@@ -506,6 +517,7 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
      * @param keyData The [KeyData] object which should be sent.
      */
     fun sendKeyPress(keyData: KeyData) {
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "sendKeyPress: $keyData")
         val ic = florisboard.currentInputConnection
 
         when (keyData.code) {
@@ -566,6 +578,7 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
                                     true -> text.toUpperCase(Locale.getDefault())
                                     false -> text.toLowerCase(Locale.getDefault())
                                 }
+                                this.inputText = this.inputText + text
                                 ic?.commitText(text, 1)
                             }
                         }

@@ -79,7 +79,7 @@ class FlorisBoard : InputMethodService() {
     }
 
     companion object {
-        private const val IME_ID: String = "dev.patrickgold.florisboard/.ime.core.FlorisBoard"
+        private const val IME_ID: String = "com.customkeyboardexample/${BuildConfig.LIBRARY_PACKAGE_NAME}.ime.core.FlorisBoard"
 
         fun checkIfImeIsEnabled(context: Context): Boolean {
             val activeImeIds = Settings.Secure.getString(

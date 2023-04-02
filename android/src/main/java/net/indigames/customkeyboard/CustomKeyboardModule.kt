@@ -4,6 +4,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
+import dev.patrickgold.florisboard.ime.core.FlorisBoard
 
 class CustomKeyboardModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -21,19 +22,19 @@ class CustomKeyboardModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun getActiveState(promise: Promise) {
-    promise.resolve(false)
+    promise.resolve(FlorisBoard.checkIfImeIsSelected(reactApplicationContext))
   }
 
   @ReactMethod
   fun getEnableState(promise: Promise) {
-    promise.resolve(false)
+    promise.resolve(FlorisBoard.checkIfImeIsEnabled(reactApplicationContext))
   }
 
   @ReactMethod
   fun getFullAccessState(promise: Promise) {
     promise.resolve(false)
   }
-
+  
   companion object {
     const val NAME = "RNCustomKeyboard"
   }
