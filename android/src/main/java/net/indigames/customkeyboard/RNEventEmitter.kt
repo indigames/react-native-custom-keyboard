@@ -28,8 +28,10 @@ class RNEventEmitter(reactContext: ReactApplicationContext) :
             Context.MODE_PRIVATE
         )
         val input = preferences.getString("input", "") ?: return
+        if (input == "") return;
         val editor = preferences.edit()
         editor.putString("input", "")
+        editor.apply()
         sendEvent("syncInputEvent", input)
     }
 

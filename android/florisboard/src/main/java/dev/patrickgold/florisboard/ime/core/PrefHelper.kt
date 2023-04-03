@@ -18,6 +18,7 @@ package dev.patrickgold.florisboard.ime.core
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.drawable.Drawable
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import dev.patrickgold.florisboard.R
@@ -31,6 +32,7 @@ class PrefHelper(
     private val context: Context,
     val shared: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 ) {
+    private val cacheBackground: HashMap<String, String> = hashMapOf() // url : file system path
     private val cacheBoolean: HashMap<String, Boolean> = hashMapOf()
     private val cacheInt: HashMap<String, Int> = hashMapOf()
     private val cacheString: HashMap<String, String> = hashMapOf()
@@ -42,6 +44,7 @@ class PrefHelper(
     val looknfeel = Looknfeel(this)
     val suggestion = Suggestion(this)
     val theme = Theme(this)
+    val background = Background(this)
 
     /**
      * Checks the cache if an entry for [key] exists, else calls [getPrefInternal] to retrieve the
@@ -145,8 +148,8 @@ class PrefHelper(
      */
     class Advanced(private val prefHelper: PrefHelper) {
         companion object {
-            const val SETTINGS_THEME =          "advanced__settings_theme"
-            const val SHOW_APP_ICON =           "advanced__show_app_icon"
+            const val SETTINGS_THEME = "advanced__settings_theme"
+            const val SHOW_APP_ICON = "advanced__show_app_icon"
         }
 
         var settingsTheme: String = ""
@@ -162,7 +165,7 @@ class PrefHelper(
      */
     class Correction(private val prefHelper: PrefHelper) {
         companion object {
-            const val DOUBLE_SPACE_PERIOD =     "correction__double_space_period"
+            const val DOUBLE_SPACE_PERIOD = "correction__double_space_period"
         }
 
         var doubleSpacePeriod: Boolean = false
@@ -175,10 +178,10 @@ class PrefHelper(
      */
     class Internal(private val prefHelper: PrefHelper) {
         companion object {
-            const val IS_IME_SET_UP =           "internal__is_ime_set_up"
-            const val VERSION_ON_INSTALL =      "internal__version_on_install"
-            const val VERSION_LAST_USE =        "internal__version_last_use"
-            const val VERSION_LAST_CHANGELOG =  "internal__version_last_changelog"
+            const val IS_IME_SET_UP = "internal__is_ime_set_up"
+            const val VERSION_ON_INSTALL = "internal__version_on_install"
+            const val VERSION_LAST_USE = "internal__version_last_use"
+            const val VERSION_LAST_CHANGELOG = "internal__version_last_changelog"
         }
 
         var isImeSetUp: Boolean
@@ -200,8 +203,8 @@ class PrefHelper(
      */
     class Keyboard(private val prefHelper: PrefHelper) {
         companion object {
-            const val ACTIVE_SUBTYPE_ID =       "keyboard__active_subtype_id"
-            const val SUBTYPES =                "keyboard__subtypes"
+            const val ACTIVE_SUBTYPE_ID = "keyboard__active_subtype_id"
+            const val SUBTYPES = "keyboard__subtypes"
         }
 
         var activeSubtypeId: Int
@@ -217,13 +220,13 @@ class PrefHelper(
      */
     class Looknfeel(private val prefHelper: PrefHelper) {
         companion object {
-            const val HEIGHT_FACTOR =           "looknfeel__height_factor"
-            const val LONG_PRESS_DELAY =        "looknfeel__long_press_delay"
-            const val ONE_HANDED_MODE =         "looknfeel__one_handed_mode"
-            const val SOUND_ENABLED =           "looknfeel__sound_enabled"
-            const val SOUND_VOLUME =            "looknfeel__sound_volume"
-            const val VIBRATION_ENABLED =       "looknfeel__vibration_enabled"
-            const val VIBRATION_STRENGTH =      "looknfeel__vibration_strength"
+            const val HEIGHT_FACTOR = "looknfeel__height_factor"
+            const val LONG_PRESS_DELAY = "looknfeel__long_press_delay"
+            const val ONE_HANDED_MODE = "looknfeel__one_handed_mode"
+            const val SOUND_ENABLED = "looknfeel__sound_enabled"
+            const val SOUND_VOLUME = "looknfeel__sound_volume"
+            const val VIBRATION_ENABLED = "looknfeel__vibration_enabled"
+            const val VIBRATION_STRENGTH = "looknfeel__vibration_strength"
         }
 
         var heightFactor: String = ""
@@ -256,8 +259,8 @@ class PrefHelper(
      */
     class Suggestion(private val prefHelper: PrefHelper) {
         companion object {
-            const val ENABLED =                 "suggestion__enabled"
-            const val USE_PREV_WORDS =          "suggestion__use_prev_words"
+            const val ENABLED = "suggestion__enabled"
+            const val USE_PREV_WORDS = "suggestion__use_prev_words"
         }
 
         var enabled: Boolean = false
@@ -273,12 +276,13 @@ class PrefHelper(
      */
     class Theme(private val prefHelper: PrefHelper) {
         companion object {
-            const val NAME =                    "theme__name"
+            const val NAME = "theme__name"
         }
 
         var name: String = ""
             get() = prefHelper.getPref(NAME, "floris_light")
             private set
+
         fun getSelectedThemeResId(): Int {
             return when (name) {
                 "floris_light" -> R.style.KeyboardTheme_FlorisLight
@@ -286,5 +290,21 @@ class PrefHelper(
                 else -> R.style.KeyboardTheme_FlorisLight
             }
         }
+    }
+
+    class Background(private val prefHelper: PrefHelper) {
+        fun getBackgroundDrawable(): Drawable? {
+            val path = path
+            if (path.isEmpty()) return null
+            return Drawable.createFromPath(path)
+        }
+
+        companion object {
+            const val NAME = "background__path"
+        }
+
+        var path: String = ""
+            get() = prefHelper.getPref(NAME, "")
+            private set
     }
 }

@@ -18,4 +18,5 @@
     <color name="navigationBarColor">#000000</color><!-- Black -->
     <color name="toolbarForegroundColor">#000000</color><!-- Black -->
     <color name="windowBackground">#FAFAFA</color><!-- Gray 50 -->
+    <color name="transparent">#00000000</color>
 </resources>

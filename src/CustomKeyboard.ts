@@ -17,6 +17,10 @@ export class CustomKeyboardRoot {
     this.eventsRegistry.syncNativeInput();
   }
 
+  public setBackground(background: string) {
+    this.nativeCustomKeyboard.setBackground(background);
+  }
+
   public events(): EventsRegistry {
     return this.eventsRegistry;
   }

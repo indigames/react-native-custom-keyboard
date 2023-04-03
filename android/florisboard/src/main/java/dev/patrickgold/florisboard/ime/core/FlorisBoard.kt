@@ -18,13 +18,14 @@ package dev.patrickgold.florisboard.ime.core
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.inputmethodservice.InputMethodService
 import android.media.AudioManager
+import android.media.Image
 import android.os.*
 import android.provider.Settings
-import android.security.identity.InvalidRequestMessageException
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -33,6 +34,7 @@ import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.squareup.moshi.Json
 import dev.patrickgold.florisboard.R
@@ -68,6 +70,7 @@ class FlorisBoard : InputMethodService() {
     lateinit var subtypeManager: SubtypeManager
     lateinit var activeSubtype: Subtype
     private var currentThemeResId: Int = 0
+    private var currentBackgroundPath: String = ""
 
     val textInputManager: TextInputManager
     val mediaInputManager: MediaInputManager
@@ -80,7 +83,8 @@ class FlorisBoard : InputMethodService() {
     }
 
     companion object {
-        private const val IME_ID: String = "com.customkeyboardexample/${BuildConfig.LIBRARY_PACKAGE_NAME}.ime.core.FlorisBoard"
+        private const val IME_ID: String =
+            "com.customkeyboardexample/${BuildConfig.LIBRARY_PACKAGE_NAME}.ime.core.FlorisBoard"
         private const val IME_SUB_ID = "ime.core.FlorisBoard"
 
         fun checkIfImeIsEnabled(context: Context): Boolean {
@@ -88,7 +92,10 @@ class FlorisBoard : InputMethodService() {
                 context.contentResolver,
                 Settings.Secure.ENABLED_INPUT_METHODS
             )
-            if (BuildConfig.DEBUG) Log.i(FlorisBoard::class.simpleName, "List of active IMEs: $activeImeIds")
+            if (BuildConfig.DEBUG) Log.i(
+                FlorisBoard::class.simpleName,
+                "List of active IMEs: $activeImeIds"
+            )
             for (id in activeImeIds.split(":")) {
                 if (id.contains(IME_SUB_ID)) return true
             }
@@ -100,7 +107,10 @@ class FlorisBoard : InputMethodService() {
                 context.contentResolver,
                 Settings.Secure.DEFAULT_INPUT_METHOD
             )
-            if (BuildConfig.DEBUG) Log.i(FlorisBoard::class.simpleName, "Selected IME: $selectedImeId")
+            if (BuildConfig.DEBUG) Log.i(
+                FlorisBoard::class.simpleName,
+                "Selected IME: $selectedImeId"
+            )
             return selectedImeId.contains(IME_SUB_ID)
         }
 
@@ -207,6 +217,7 @@ class FlorisBoard : InputMethodService() {
 
         prefs.sync()
         updateThemeIfNecessary()
+        updateBackgroundIfNecessary()
         updateOneHandedPanelVisibility()
         activeSubtype = subtypeManager.getActiveSubtype() ?: Subtype.DEFAULT
         onSubtypeChanged(activeSubtype)
@@ -288,14 +299,32 @@ class FlorisBoard : InputMethodService() {
             w.navigationBarColor = getColorFromAttr(baseContext, android.R.attr.navigationBarColor)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 var flags = w.decorView.systemUiVisibility
-                flags = if (getBooleanFromAttr(baseContext, android.R.attr.windowLightNavigationBar)) {
-                    flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                } else {
-                    flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
-                }
+                flags =
+                    if (getBooleanFromAttr(baseContext, android.R.attr.windowLightNavigationBar)) {
+                        flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    } else {
+                        flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+                    }
                 w.decorView.systemUiVisibility = flags
             }
         }
+    }
+
+    private fun updateBackgroundIfNecessary() {
+        val keyboardViewLinearLayout =
+            inputView?.findViewById<ImageView>(R.id.test) ?: return
+//        keyboardViewLinearLayout.setBackgroundColor(Color.parseColor("#E0E0E0"))
+        val preferences =
+            baseContext.getSharedPreferences("net.indigames.customkeyboard", Context.MODE_PRIVATE)
+        val newBackgroundPath = preferences.getString(PrefHelper.Background.NAME, "")
+        if (newBackgroundPath == currentBackgroundPath) return
+
+        if (newBackgroundPath != null) {
+            currentBackgroundPath = newBackgroundPath
+        }
+
+        keyboardViewLinearLayout.setBackgroundColor(Color.TRANSPARENT)
+        keyboardViewLinearLayout.background = Drawable.createFromPath(currentBackgroundPath)
     }
 
     override fun onComputeInsets(outInsets: Insets?) {
@@ -512,7 +541,8 @@ class FlorisBoard : InputMethodService() {
             newSelEnd: Int,
             candidatesStart: Int,
             candidatesEnd: Int
-        ) {}
+        ) {
+        }
 
         fun onSubtypeChanged(newSubtype: Subtype) {}
     }

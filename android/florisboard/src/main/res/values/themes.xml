@@ -28,7 +28,8 @@
         <item name="key_popup_extended_bgColorActive">#BDBDBD</item><!-- Gray 400 -->
         <item name="key_popup_extended_shadowColor">#CDCACACA</item>
 
-        <item name="keyboard_bgColor">#E0E0E0</item><!-- Gray 300 -->
+<!--        <item name="keyboard_bgColor">#E0E0E0</item>&lt;!&ndash; Gray 300 &ndash;&gt;-->
+        <item name="keyboard_bgColor">#00000000</item><!-- Gray 300 -->
 
         <item name="emoji_key_bgColor">?keyboard_bgColor</item>
         <item name="emoji_key_bgColorPressed">?key_popup_extended_bgColorActive</item>
