@@ -24,6 +24,7 @@ import android.inputmethodservice.InputMethodService
 import android.media.AudioManager
 import android.os.*
 import android.provider.Settings
+import android.security.identity.InvalidRequestMessageException
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -80,6 +81,7 @@ class FlorisBoard : InputMethodService() {
 
     companion object {
         private const val IME_ID: String = "com.customkeyboardexample/${BuildConfig.LIBRARY_PACKAGE_NAME}.ime.core.FlorisBoard"
+        private const val IME_SUB_ID = "ime.core.FlorisBoard"
 
         fun checkIfImeIsEnabled(context: Context): Boolean {
             val activeImeIds = Settings.Secure.getString(
@@ -87,7 +89,10 @@ class FlorisBoard : InputMethodService() {
                 Settings.Secure.ENABLED_INPUT_METHODS
             )
             if (BuildConfig.DEBUG) Log.i(FlorisBoard::class.simpleName, "List of active IMEs: $activeImeIds")
-            return activeImeIds.split(":").contains(IME_ID)
+            for (id in activeImeIds.split(":")) {
+                if (id.contains(IME_SUB_ID)) return true
+            }
+            return false
         }
 
         fun checkIfImeIsSelected(context: Context): Boolean {
@@ -96,7 +101,7 @@ class FlorisBoard : InputMethodService() {
                 Settings.Secure.DEFAULT_INPUT_METHOD
             )
             if (BuildConfig.DEBUG) Log.i(FlorisBoard::class.simpleName, "Selected IME: $selectedImeId")
-            return selectedImeId == IME_ID
+            return selectedImeId.contains(IME_SUB_ID)
         }
 
         @Synchronized
