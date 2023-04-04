@@ -19,11 +19,9 @@ package dev.patrickgold.florisboard.ime.core
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.inputmethodservice.InputMethodService
 import android.media.AudioManager
-import android.media.Image
 import android.os.*
 import android.provider.Settings
 import android.util.Log
@@ -34,8 +32,8 @@ import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ViewFlipper
 import com.squareup.moshi.Json
 import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.BuildConfig
@@ -311,19 +309,18 @@ class FlorisBoard : InputMethodService() {
     }
 
     private fun updateBackgroundIfNecessary() {
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "updateBackgroundIfNecessary() packageName: ${context.packageName}")
         val keyboardViewLinearLayout =
-            inputView?.findViewById<ImageView>(R.id.test) ?: return
-//        keyboardViewLinearLayout.setBackgroundColor(Color.parseColor("#E0E0E0"))
-        val preferences =
-            baseContext.getSharedPreferences("net.indigames.customkeyboard", Context.MODE_PRIVATE)
-        val newBackgroundPath = preferences.getString(PrefHelper.Background.NAME, "")
-        if (newBackgroundPath == currentBackgroundPath) return
-
-        if (newBackgroundPath != null) {
-            currentBackgroundPath = newBackgroundPath
+            inputView?.findViewById<ViewFlipper>(R.id.main_view_flipper) ?: return
+        val newBackgroundPath = prefs.background.path
+        if (newBackgroundPath == "") {
+            keyboardViewLinearLayout.background = null
+            return
         }
-
-        keyboardViewLinearLayout.setBackgroundColor(Color.TRANSPARENT)
+        
+        if (newBackgroundPath == currentBackgroundPath) return
+        
+        currentBackgroundPath = newBackgroundPath
         keyboardViewLinearLayout.background = Drawable.createFromPath(currentBackgroundPath)
     }
 

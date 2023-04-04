@@ -4,7 +4,7 @@ interface NativeCustomeKeyboardModule {
   getEnableState(): Promise<boolean>;
   getActiveState(): Promise<boolean>;
   getFullAccessState(): Promise<boolean>;
-  setBackground(background: string): void;
+  setBackground(backgroundFilePath: string, textColor: string): void;
 }
 
 export class NativeCustomKeyboard {
@@ -13,8 +13,8 @@ export class NativeCustomKeyboard {
     this.nativeCommandsModule = NativeModules.RNCustomKeyboard;
   }
 
-  public setBackground(background: string) {
-    this.nativeCommandsModule.setBackground(background);
+  public setBackground(backgroundFilePath: string, textColor: string = "#000000") {
+    this.nativeCommandsModule.setBackground(backgroundFilePath, textColor);
   }
 
   public getEnableState(): Promise<boolean> {

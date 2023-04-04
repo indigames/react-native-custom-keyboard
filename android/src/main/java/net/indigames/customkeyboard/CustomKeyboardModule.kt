@@ -1,6 +1,7 @@
 package net.indigames.customkeyboard
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -13,21 +14,23 @@ import dev.patrickgold.florisboard.ime.core.PrefHelper
 class CustomKeyboardModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
 
+    private var prefs: PrefHelper
+
+    init {
+        prefs = PrefHelper(reactContext)
+    }
+
+
 
     override fun getName(): String {
         return NAME
     }
 
     @ReactMethod
-    fun setBackground(path: String) {
-        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "setKeyboardBackground::path: $path")
-        val preferences = reactApplicationContext.getSharedPreferences(
-            "net.indigames.customkeyboard",
-            Context.MODE_PRIVATE
-        )
-        val editor = preferences.edit()
-        editor.putString(PrefHelper.Background.NAME, path)
-        editor.apply()
+    fun setBackground(backgroundFilePath: String, keyTextColor: String) {
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "setKeyboardBackground::path: $backgroundFilePath")
+        prefs.background.path = backgroundFilePath
+        prefs.background.textColor = Color.parseColor(keyTextColor)
     }
 
     @ReactMethod
@@ -42,7 +45,7 @@ class CustomKeyboardModule(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun getFullAccessState(promise: Promise) {
-        promise.resolve(false)
+        promise.resolve(true)
     }
 
     companion object {

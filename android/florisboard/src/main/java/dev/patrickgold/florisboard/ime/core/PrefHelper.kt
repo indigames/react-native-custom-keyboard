@@ -18,6 +18,7 @@ package dev.patrickgold.florisboard.ime.core
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.provider.Settings
 import androidx.preference.PreferenceManager
@@ -45,6 +46,7 @@ class PrefHelper(
     val suggestion = Suggestion(this)
     val theme = Theme(this)
     val background = Background(this)
+    val input = Input(this)
 
     /**
      * Checks the cache if an entry for [key] exists, else calls [getPrefInternal] to retrieve the
@@ -141,6 +143,16 @@ class PrefHelper(
         cacheBoolean.clear()
         cacheInt.clear()
         cacheString.clear()
+    }
+
+    class Input(private val prefHelper: PrefHelper) {
+        companion object {
+            const val INPUT_KEY = "input__key"
+        }
+        
+        var text: String
+            get() = prefHelper.getPref(INPUT_KEY, "")
+            set(value) = prefHelper.setPref(INPUT_KEY, value)
     }
 
     /**
@@ -300,11 +312,16 @@ class PrefHelper(
         }
 
         companion object {
-            const val NAME = "background__path"
+            const val KEY_TEXT_COLOR = "text__color"
+            const val BACKGROUND_PATH = "background__path"
         }
 
-        var path: String = ""
-            get() = prefHelper.getPref(NAME, "")
-            private set
+        var path: String
+            get() = prefHelper.getPref(BACKGROUND_PATH, "")
+            set(value) = prefHelper.setPref(BACKGROUND_PATH, value)
+        
+        var textColor: Int
+            get() = prefHelper.getPref(KEY_TEXT_COLOR, -1)
+            set(value) = prefHelper.setPref(KEY_TEXT_COLOR, value)
     }
 }

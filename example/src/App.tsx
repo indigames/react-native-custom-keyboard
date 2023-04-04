@@ -19,6 +19,7 @@ export default function App() {
   console.log("App Started");
   const [backgroundPath, setBackgroundPath] = useState('');
   const [backgroundUrl, setBackgroundUrl] = useState('https://wallpaperaccess.com/full/521004.jpg');
+  const [textColor, setTextColor] = useState('#000000');
   const [isDownloading, setIsDownloading] = useState(false);
   const [input, setInput] = useState('');
   const [isKeyboardEnabled, setIsKeyboardEnabled] = useState(false);
@@ -67,7 +68,7 @@ export default function App() {
         console.log('The file saved to ', res.path());
         setBackgroundPath(`${Platform.OS === 'android' ? 'file://' : ''}${res.path()}`);
         setIsDownloading(false);
-        CustomKeyboard.setBackground(res.path());
+        CustomKeyboard.setBackground(res.path(), textColor);
       });
   }
 
@@ -89,7 +90,8 @@ export default function App() {
           <Text>Keyboard active: {<Text style={{ color: isKeyboardActive ? '#0f0' : '#f00' }}>{isKeyboardActive ? "activated" : "not active"}</Text>}</Text>
           <Text>Keyboard has full access: {<Text style={{ color: isKeyboardHasFullAccess ? '#0f0' : '#f00' }}>{isKeyboardHasFullAccess ? "has full access" : "hasn't have full access"}</Text>}</Text>
           <Text>Result: {input}</Text>
-          <TextInput value={backgroundUrl} onChangeText={setBackgroundUrl} placeholder="Keyboard background Url" style={styles.input} />
+          <TextInput value={backgroundUrl} onChangeText={setBackgroundUrl} placeholder="Keyboard background Url" style={styles.textInput} />
+          <TextInput value={textColor} onChangeText={setTextColor} placeholder="text foreground color " style={styles.textInput} />
           <TextInput placeholder="Input" style={styles.textInput} />
           {
             isDownloading ? <Text>Downloading...</Text> :

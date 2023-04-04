@@ -1,14 +1,18 @@
 package net.indigames.customkeyboard
 
-import android.content.Context
 import android.util.Log
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import dev.patrickgold.florisboard.BuildConfig
+import dev.patrickgold.florisboard.ime.core.PrefHelper
 
 
 class RNEventEmitter(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
+    private var prefs: PrefHelper
+    init {
+        prefs = PrefHelper(reactContext)
+    }
 
     override fun getName(): String {
         return NAME
@@ -23,15 +27,9 @@ class RNEventEmitter(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun syncNativeInput() {
-        val preferences = reactApplicationContext.getSharedPreferences(
-            "net.indigames.customkeyboard",
-            Context.MODE_PRIVATE
-        )
-        val input = preferences.getString("input", "") ?: return
+        val input = prefs.input.text
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "syncNativeInput::input: $input")
         if (input == "") return;
-        val editor = preferences.edit()
-        editor.putString("input", "")
-        editor.apply()
         sendEvent("syncInputEvent", input)
     }
 

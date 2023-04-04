@@ -232,10 +232,7 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
     }
 
     override fun onWindowHidden() {
-        val preferences = FlorisBoard.getInstance().baseContext.getSharedPreferences("net.indigames.customkeyboard", Context.MODE_PRIVATE)
-        val editor = preferences.edit()
-        editor.putString("input", this.inputText)
-        editor.apply()
+        florisboard.prefs.input.text = this.inputText
         this.inputText = ""
         super.onWindowHidden()
     }
