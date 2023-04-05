@@ -17,8 +17,12 @@ export class CustomKeyboardRoot {
     this.eventsRegistry.syncNativeInput();
   }
 
-  public setBackground(backgroundFilePath: string, textColor: string = "#000000") {
-    this.nativeCustomKeyboard.setBackground(backgroundFilePath, textColor);
+  public setBackground(backgroundFilePath: string) {
+    this.nativeCustomKeyboard.setBackground(backgroundFilePath);
+  }
+
+  setTheme(selectedItem: "light" | "dark" | string = "dark") {
+    this.nativeCustomKeyboard.setTheme(selectedItem);
   }
 
   public events(): EventsRegistry {

@@ -46,7 +46,7 @@
         <item>Floris Dark</item>
     </string-array>
     <string-array name="pref__theme__name__values">
-        <item>floris_light</item>
-        <item>floris_dark</item>
+        <item>light</item>
+        <item>dark</item>
     </string-array>
 </resources>

@@ -33,7 +33,6 @@ class PrefHelper(
     private val context: Context,
     val shared: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 ) {
-    private val cacheBackground: HashMap<String, String> = hashMapOf() // url : file system path
     private val cacheBoolean: HashMap<String, Boolean> = hashMapOf()
     private val cacheInt: HashMap<String, Int> = hashMapOf()
     private val cacheString: HashMap<String, String> = hashMapOf()
@@ -291,15 +290,15 @@ class PrefHelper(
             const val NAME = "theme__name"
         }
 
-        var name: String = ""
-            get() = prefHelper.getPref(NAME, "floris_light")
-            private set
+        var name: String
+            get() = prefHelper.getPref(NAME, "dark")
+            set(value) = prefHelper.setPref(NAME, value)
 
         fun getSelectedThemeResId(): Int {
             return when (name) {
-                "floris_light" -> R.style.KeyboardTheme_FlorisLight
-                "floris_dark" -> R.style.KeyboardTheme_FlorisDark
-                else -> R.style.KeyboardTheme_FlorisLight
+                "light" -> R.style.KeyboardTheme_FlorisLight
+                "dark" -> R.style.KeyboardTheme_FlorisDark
+                else -> R.style.KeyboardTheme_FlorisDark
             }
         }
     }

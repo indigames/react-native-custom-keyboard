@@ -162,8 +162,13 @@ class FlorisBoard : InputMethodService() {
         if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "onCreateInputView()")
 
         baseContext.setTheme(currentThemeResId)
-
         inputView = layoutInflater.inflate(R.layout.florisboard, null) as InputView
+        val view = inputView?.findViewById<LinearLayout>(R.id.inner_input_view_container)
+        view?.background = if (currentBackgroundPath != "") {
+            Drawable.createFromPath(currentBackgroundPath)
+        } else {
+            null
+        }
 
         textInputManager.onCreateInputView()
         mediaInputManager.onCreateInputView()
@@ -214,8 +219,13 @@ class FlorisBoard : InputMethodService() {
         if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "onWindowShown()")
 
         prefs.sync()
-        updateThemeIfNecessary()
-        updateBackgroundIfNecessary()
+        var createNewInputView = false
+        createNewInputView = updateThemeIfNecessary()
+        if (updateBackgroundIfNecessary() && !createNewInputView) {
+            createNewInputView = true
+        }
+
+        if (createNewInputView) setInputView(onCreateInputView())
         updateOneHandedPanelVisibility()
         activeSubtype = subtypeManager.getActiveSubtype() ?: Subtype.DEFAULT
         onSubtypeChanged(activeSubtype)
@@ -288,12 +298,11 @@ class FlorisBoard : InputMethodService() {
      * Checks the preferences if the selected theme res id has changed and updates the theme only
      * then by rebuilding the UI and setting the navigation bar theme manually.
      */
-    private fun updateThemeIfNecessary() {
+    private fun updateThemeIfNecessary(): Boolean {
         val newThemeResId = prefs.theme.getSelectedThemeResId()
         if (newThemeResId != currentThemeResId) {
             currentThemeResId = newThemeResId
-            setInputView(onCreateInputView())
-            val w = window?.window ?: return
+            val w = window?.window ?: return false
             w.navigationBarColor = getColorFromAttr(baseContext, android.R.attr.navigationBarColor)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 var flags = w.decorView.systemUiVisibility
@@ -305,23 +314,23 @@ class FlorisBoard : InputMethodService() {
                     }
                 w.decorView.systemUiVisibility = flags
             }
+            return true
         }
+        return false
     }
 
-    private fun updateBackgroundIfNecessary() {
-        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "updateBackgroundIfNecessary() packageName: ${context.packageName}")
-        val keyboardViewLinearLayout =
-            inputView?.findViewById<ViewFlipper>(R.id.main_view_flipper) ?: return
+    private fun updateBackgroundIfNecessary(): Boolean {
+        if (BuildConfig.DEBUG) Log.i(
+            this::class.simpleName,
+            "updateBackgroundIfNecessary() packageName: ${context.packageName}"
+        )
         val newBackgroundPath = prefs.background.path
-        if (newBackgroundPath == "") {
-            keyboardViewLinearLayout.background = null
-            return
+        if (newBackgroundPath != currentBackgroundPath) {
+            currentBackgroundPath = newBackgroundPath
+            return true
         }
-        
-        if (newBackgroundPath == currentBackgroundPath) return
-        
-        currentBackgroundPath = newBackgroundPath
-        keyboardViewLinearLayout.background = Drawable.createFromPath(currentBackgroundPath)
+
+        return false
     }
 
     override fun onComputeInsets(outInsets: Insets?) {

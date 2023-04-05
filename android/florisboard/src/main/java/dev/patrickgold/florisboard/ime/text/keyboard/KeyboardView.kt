@@ -50,7 +50,6 @@ class KeyboardView : LinearLayout {
     private var activeX: Float = 0.0f
     private var activeY: Float = 0.0f
 
-    private var colorDrawable: ColorDrawable
     var computedLayout: ComputedLayoutData? = null
         set(v) {
             field = v
@@ -66,8 +65,6 @@ class KeyboardView : LinearLayout {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        colorDrawable = ColorDrawable(getColorFromAttr(context, R.attr.keyboard_bgColor))
-        background = colorDrawable
         orientation = VERTICAL
         layoutParams = layoutParams ?: FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -308,11 +305,5 @@ class KeyboardView : LinearLayout {
                 }
             }
         }
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-
-        colorDrawable.color = getColorFromAttr(context, R.attr.keyboard_bgColor)
     }
 }

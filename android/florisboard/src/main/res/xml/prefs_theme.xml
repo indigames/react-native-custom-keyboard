@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
-        android:defaultValue="floris_light"
+        android:defaultValue="dark"
         app:entries="@array/pref__theme__name__entries"
         app:entryValues="@array/pref__theme__name__values"
         app:key="theme__name"

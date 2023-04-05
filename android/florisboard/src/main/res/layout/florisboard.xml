@@ -13,7 +13,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="bottom"
-            android:background="?keyboard_bgColor"
             android:baselineAligned="false">
 
         <LinearLayout
@@ -40,6 +39,7 @@
 
         <ViewFlipper
                 android:id="@+id/main_view_flipper"
+                android:background="?keyboard_bgColor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

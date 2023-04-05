@@ -577,15 +577,7 @@ class KeyView(
     ) : ViewOutlineProvider() {
 
         override fun getOutline(view: View?, outline: Outline?) {
-            view ?: return
-            outline ?: return
-            outline.setRoundRect(
-                0,
-                0,
-                width,
-                height,
-                view.resources.getDimension(R.dimen.key_borderRadius)
-            )
+            return
         }
     }
 }

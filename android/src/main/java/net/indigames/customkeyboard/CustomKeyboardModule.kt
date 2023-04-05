@@ -27,10 +27,15 @@ class CustomKeyboardModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun setBackground(backgroundFilePath: String, keyTextColor: String) {
+    fun setBackground(backgroundFilePath: String) {
         if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "setKeyboardBackground::path: $backgroundFilePath")
         prefs.background.path = backgroundFilePath
-        prefs.background.textColor = Color.parseColor(keyTextColor)
+    }
+    
+    @ReactMethod
+    fun setTheme(theme: String) {
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "setKeyboardTheme::theme: $theme")
+        prefs.theme.name = theme
     }
 
     @ReactMethod

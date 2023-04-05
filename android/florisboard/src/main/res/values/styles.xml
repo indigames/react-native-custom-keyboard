@@ -49,7 +49,7 @@
         <item name="android:background">?semiTransparentColor</item>
     </style>
 
-    <style name="SmartbarQuickAction" parent="Widget.AppCompat.Button">
+    <style name="SmartbarQuickAction" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_margin">@dimen/smartbar_button_margin</item>
