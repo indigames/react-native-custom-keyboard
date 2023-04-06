@@ -21,7 +21,7 @@ export class CustomKeyboardRoot {
     this.nativeCustomKeyboard.setBackground(backgroundFilePath);
   }
 
-  setTheme(selectedItem: "light" | "dark" | string = "dark") {
+  setTheme(selectedItem: 'light' | 'dark' | string = 'dark') {
     this.nativeCustomKeyboard.setTheme(selectedItem);
   }
 
