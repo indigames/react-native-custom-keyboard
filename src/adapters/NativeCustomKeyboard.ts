@@ -1,6 +1,8 @@
+import { Platform } from 'react-native';
 import { NativeModules } from 'react-native';
 
 interface NativeCustomeKeyboardModule {
+  getPathForAppGroup(): string;
   setTheme(selectedItem: string): void;
   getEnableState(): Promise<boolean>;
   getActiveState(): Promise<boolean>;
@@ -18,8 +20,16 @@ export class NativeCustomKeyboard {
     this.nativeCommandsModule.setBackground(backgroundFilePath);
   }
 
-  setTheme(selectedItem: string) {
-    this.nativeCommandsModule.setTheme(selectedItem);
+  /**
+   * to get the path container for app group on iOS
+   *
+   * @return {string}  {app group shared container path}
+   * @memberof NativeCustomKeyboard
+   */
+  getPathForAppGroup(): string {
+    if (Platform.OS === 'ios')
+      return this.nativeCommandsModule.getPathForAppGroup();
+    return '';
   }
 
   public getEnableState(): Promise<boolean> {

@@ -25,34 +25,42 @@ class DemoKeyboardAppearance: StandardKeyboardAppearance {
     //     return super.buttonImage(for: action)
     // }
 
-    // override func buttonStyle(
-    //     for action: KeyboardAction,
-    //     isPressed: Bool
-    // ) -> KeyboardButtonStyle {
-    //     var style = super.buttonStyle(for: action, isPressed: isPressed)
-    //     style.cornerRadius = 10
-    //     style.backgroundColor = .blue
-    //     style.foregroundColor = .yellow
-    //     return style
-    // }
+     override func buttonStyle(
+         for action: KeyboardAction,
+         isPressed: Bool
+     ) -> KeyboardButtonStyle {
+         var style = super.buttonStyle(for: action, isPressed: isPressed)
+//         style.cornerRadius = 10
+         style.backgroundColor = Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.1)
+         style.foregroundColor = .white
+         return style
+     }
+    
+    override func buttonImage(for action: KeyboardAction) -> Image? {
+        var image = super.buttonImage(for: action)
+        if action == .backspace {
+            return image?.foregroundColor(.white) as? Image
+        }
+        return image
+    }
 
-    // override func buttonText(for action: KeyboardAction) -> String? {
-    //     if action == .return { return "⏎" }
-    //     if action == .space { return "" }
-    //     if action == .keyboardType(.emojis) { return "🤯" }
-    //     return super.buttonText(for: action)
-    // }
+     override func buttonText(for action: KeyboardAction) -> String? {
+         if action == .backspace { return "⏎" }
+         if action == .space { return "" }
+         if action == .keyboardType(.emojis) { return "🤯" }
+         return super.buttonText(for: action)
+     }
 
-    // override var actionCalloutStyle: ActionCalloutStyle {
-    //     var style = super.actionCalloutStyle()
-    //     style.callout.backgroundColor = .red
-    //     return style
-    // }
+     override var actionCalloutStyle: ActionCalloutStyle {
+         var style = super.actionCalloutStyle
+         style.callout.backgroundColor = .red
+         return style
+     }
 
-    // override var inputCalloutStyle: InputCalloutStyle {
-    //     var style = super.inputCalloutStyle()
-    //     style.callout.backgroundColor = .blue
-    //     style.callout.textColor = .yellow
-    //     return style
-    // }
+     override var inputCalloutStyle: InputCalloutStyle {
+         var style = super.inputCalloutStyle
+         style.callout.backgroundColor = .blue
+         style.callout.textColor = .yellow
+         return style
+     }
 }

@@ -13,7 +13,7 @@ import {
   Image,
 } from 'react-native';
 import { CustomKeyboard } from 'react-native-custom-keyboard';
-import RNFetchBlob from 'rn-fetch-blob';
+import RNFetchBlob, { ReactNativeBlobUtilConfig } from 'react-native-blob-util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Images from '../data/images.json';
 
@@ -36,32 +36,21 @@ export default function App() {
     console.log(`downloading (${isDownloading}) background url: ${finalUrl}`);
     setIsDownloading(true);
 
-    var cachedPath = await getCachedImage(finalUrl);
-    if (!cachedPath || cachedPath == '') {
-      console.log('The file saved to ', cachedPath);
-      cachedPath = (
-        await RNFetchBlob.config({ fileCache: true }).fetch('GET', finalUrl)
-      ).path();
+    // CustomKeyboard.setBackground already cached the image within app group container on iOS
+    const appGroupPath = await CustomKeyboard.getPathForAppGroup();
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    const overridePath = Platform.OS == 'ios' ? `${appGroupPath}/${fileName}` : undefined;
+    console.log('override path', overridePath);
+    const config: ReactNativeBlobUtilConfig = {
+      fileCache: true,
+      appendExt: 'jpg',
+      path: overridePath,
+    };
+    var path = (await RNFetchBlob.config(config).fetch('GET', finalUrl)).path();
 
-      await AsyncStorage.setItem(`@${finalUrl}`, cachedPath);
-    }
-    await AsyncStorage.setItem(`@current`, finalUrl);
     setBackgroundUrl(finalUrl);
-    return cachedPath;
+    return path;
   };
-
-  const getCachedImage = useCallback(async (url: string): Promise<string> => {
-    try {
-      const path = await AsyncStorage.getItem(`@${url}`);
-      if (path !== null) {
-        console.log('cached path', path);
-        return path;
-      }
-    } catch (e) {
-      console.log('error reading value', e);
-    }
-    return '';
-  }, []);
 
   const updateImageWithIndex = async (newIndex: number) => {
     var index = newIndex;

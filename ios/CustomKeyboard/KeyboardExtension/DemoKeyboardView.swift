@@ -13,13 +13,15 @@ struct DemoKeyboardView: View {
     unowned var controller: KeyboardInputViewController
     unowned var customActionHandler: DemoKeyboardActionHandler
     
+    public var backgroundPath: String = ""
+    
     init(controller: KeyboardInputViewController, actionHandler: DemoKeyboardActionHandler) {
         self.controller = controller
         self.customActionHandler = actionHandler
     }
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack() {
             Button("SYNC", action: {
                 NSLog("Syncing with container app")
                 
@@ -56,6 +58,32 @@ struct DemoKeyboardView: View {
                 controller: controller,
                 autocompleteToolbar: .none
             )
+            .background(loadBackground)
         }.buttonStyle(.automatic)
+    }
+    
+    private var loadBackground: some View {
+        return ZStack {
+            loadImage()?.resizable()
+            Color.black.opacity(0.3)
+        }
+    }
+    
+    private func loadImage() -> Image? {
+        if (self.backgroundPath == "") {
+            return nil
+        }
+        
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ loading background \(self.backgroundPath)")
+        let backgroundUrl = URL(fileURLWithPath: self.backgroundPath)
+        print("startAccessingSecurityScopedResource: \(backgroundUrl.startAccessingSecurityScopedResource())")
+        do {
+            let imageData = try Data(contentsOf: backgroundUrl)
+            backgroundUrl.stopAccessingSecurityScopedResource()
+            return Image(uiImage: UIImage(data: imageData)!)
+        } catch {
+            print("CANNOT LOADING IMAGE: \(error)")
+        }
+        return nil
     }
 }
