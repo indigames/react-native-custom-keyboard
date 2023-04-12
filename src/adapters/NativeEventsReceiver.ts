@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 interface NativeEmitterModule extends NativeModule {
+  updateHasSyncedInput(): Promise<void>;
   syncNativeInput(): void;
 }
 
@@ -20,6 +21,10 @@ export class NativeEventsReceiver {
 
   public syncNativeInput(): void {
     this.nativeEmitterModule.syncNativeInput();
+  }
+
+  public updateHasSynced(): Promise<void> {
+    return this.nativeEmitterModule.updateHasSyncedInput();
   }
 
   public characterEntered(

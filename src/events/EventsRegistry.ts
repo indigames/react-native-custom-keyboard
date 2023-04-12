@@ -7,6 +7,11 @@ export class EventsRegistry {
   public syncNativeInput(): void {
     this.nativeEventsReceiver.syncNativeInput();
   }
+
+  public updateHasSynced(): Promise<void> {
+    return this.nativeEventsReceiver.updateHasSynced();
+  }
+
   public characterEntered(
     callback: (event: String) => void
   ): EmitterSubscription {

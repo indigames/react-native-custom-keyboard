@@ -5,4 +5,8 @@
 
 RCT_EXTERN_METHOD(syncNativeInput)
 
+RCT_EXTERN_METHOD(updateHasSyncedInput:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 @end
+

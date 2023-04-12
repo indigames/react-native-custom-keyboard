@@ -22,38 +22,38 @@ struct DemoKeyboardView: View {
     
     var body: some View {
         VStack() {
-            Button("SYNC", action: {
-                NSLog("Syncing with container app")
-                
-                self.customActionHandler.syncInputToUserDefaults()
-                
-                guard let hostAppId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String else {
-                    //            self.hostAppId = hostAppId
-                    print("Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
-                    return
-                }
-                
-                guard let hostAppUrlScheme = Bundle.main.object(forInfoDictionaryKey: HOST_URL_SCHEME_INFO_PLIST_KEY) as? String else {
-                    //            self.hostAppUrlScheme = hostAppUrlScheme
-                    print("Error: \(NO_INFO_PLIST_URL_SCHEME_ERROR)")
-                    return
-                }
-                
-                let url = URL(string: "\(hostAppUrlScheme)://\(hostAppId)")
-                print("open URL \(hostAppUrlScheme)")
-                let selectorOpenURL = sel_registerName("openURL:")
-                var responder: UIResponder? = self.controller
-                
-                while responder != nil {
-                    if responder?.responds(to: selectorOpenURL) == true {
-                        responder?.perform(selectorOpenURL, with: url)
+            HStack {
+                Button("Sync \(customActionHandler.input.count) point\(customActionHandler.input.count > 1 ? "s" : "")", action: {
+                    NSLog("Syncing with container app")
+                    
+                    self.customActionHandler.syncInputToUserDefaults()
+                    
+                    guard let hostAppId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String else {
+                        print("Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
+                        return
                     }
-                    responder = responder!.next
-                }
-                
-                controller.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-                
-            })
+                    
+                    guard let hostAppUrlScheme = Bundle.main.object(forInfoDictionaryKey: HOST_URL_SCHEME_INFO_PLIST_KEY) as? String else {
+                        print("Error: \(NO_INFO_PLIST_URL_SCHEME_ERROR)")
+                        return
+                    }
+                    
+                    let url = URL(string: "\(hostAppUrlScheme)://\(hostAppId)")
+                    print("open URL \(hostAppUrlScheme)")
+                    let selectorOpenURL = sel_registerName("openURL:")
+                    var responder: UIResponder? = self.controller
+                    
+                    while responder != nil {
+                        if responder?.responds(to: selectorOpenURL) == true {
+                            responder?.perform(selectorOpenURL, with: url)
+                        }
+                        responder = responder!.next
+                    }
+                    
+                    controller.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+                    
+                })
+            }
             SystemKeyboard(
                 controller: controller,
                 autocompleteToolbar: .none

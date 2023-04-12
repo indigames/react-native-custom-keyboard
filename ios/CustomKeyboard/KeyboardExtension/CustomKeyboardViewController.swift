@@ -48,6 +48,10 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
             userDefaults.set("", forKey: USER_DEFAULTS_BACKGROUND_PATH)
             userDefaults.synchronize()
         }
+        
+        if self.userDefault?.object(forKey: USER_DEFAULTS_KEY) is String {
+            self.customActionHandler?.input = ""
+        }
     }
     
     open override func viewWillDisappear(_ animated: Bool) {

@@ -2,7 +2,6 @@
 
 public let USER_DEFAULTS_BACKGROUND_PATH = "SharedBackgroundPathUserDefault"
 public let USER_DEFAULTS_KEY = "SharedCharacterUserDefault"
-public let INPUT_EVENT_KEY = "input"
 public let URL_SCHEME_INFO_PLIST_KEY = "AppURLScheme"
 public let HOST_APP_IDENTIFIER_INFO_PLIST_KEY = "AppGroupIdentifier"
 public let HOST_URL_SCHEME_INFO_PLIST_KEY = "HostAppURLScheme"

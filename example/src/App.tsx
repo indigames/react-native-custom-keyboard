@@ -88,9 +88,11 @@ export default function App() {
       updateImageWithIndex(index);
     });
 
-    var subscription = CustomKeyboard.events().characterEntered((character) => {
+    var subscription = CustomKeyboard.events().characterEntered(async (character) => {
       console.log('character', character);
-      setInput((i) => i + character);
+      await CustomKeyboard.updateHasSynced()
+      // only open keyboard after in synced
+      setInput("" + character);
     });
 
     return () => {
