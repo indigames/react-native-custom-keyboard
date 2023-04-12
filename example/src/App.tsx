@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {
   Button,
   Linking,
   Image,
+  AppState,
 } from 'react-native';
 import { CustomKeyboard } from 'react-native-custom-keyboard';
 import RNFetchBlob, { ReactNativeBlobUtilConfig } from 'react-native-blob-util';
@@ -95,7 +96,15 @@ export default function App() {
       setInput("" + character);
     });
 
+    const appStateSubscription = AppState.addEventListener('change', nextAppState => {
+      console.log('nextAppState', nextAppState);
+      if (nextAppState === 'active') {
+        CustomKeyboard.syncNativeInput();
+      }
+    });
+
     return () => {
+      appStateSubscription.remove();
       subscription.remove();
     };
   }, []);
@@ -134,9 +143,8 @@ export default function App() {
             {backgroundPath ? (
               <Image
                 source={{
-                  uri: `${
-                    Platform.OS === 'android' ? 'file://' : ''
-                  }${backgroundPath}`,
+                  uri: `${Platform.OS === 'android' ? 'file://' : ''
+                    }${backgroundPath}`,
                 }}
                 style={{ width: '100%', height: 150 }}
               />
