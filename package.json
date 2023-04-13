@@ -1,7 +1,7 @@
 {
   "name": "react-native-custom-keyboard",
-  "version": "0.2.2",
-  "description": "test",
+  "version": "0.2.3",
+  "description": "Custom keyboard for React Native that using FlorisBoard (Android) and KeyboardKit (iOS)",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
