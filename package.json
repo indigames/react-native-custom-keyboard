@@ -1,6 +1,6 @@
 {
   "name": "react-native-custom-keyboard",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Custom keyboard for React Native that using FlorisBoard (Android) and KeyboardKit (iOS)",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -41,13 +41,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/trungnhm1998/react-native-custom-keyboard",
+  "repository": "https://github.com/indigames/react-native-custom-keyboard",
   "author": "trungnhm1998 <trung.nguyenhoangminh1998@gmail.com> (https://github.com/trungnhm1998)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/trungnhm1998/react-native-custom-keyboard/issues"
+    "url": "https://github.com/indigames/react-native-custom-keyboard/issues"
   },
-  "homepage": "https://github.com/trungnhm1998/react-native-custom-keyboard#readme",
+  "homepage": "https://github.com/indigames/react-native-custom-keyboard#readme",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },
