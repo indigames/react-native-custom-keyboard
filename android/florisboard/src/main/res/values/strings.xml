@@ -15,6 +15,8 @@
 
     <string name="key_popup__threedots_alt">Three-dot icon. If visible, indicates that more letters can be used if longer pressed.</string>
 
+    <string name="sync_button__label">Sync %1$d %2$s</string>
+
     <!-- Media strings -->
     <string name="media__tab__emojis">Emojis</string>
     <string name="media__tab__emoticons">Emoticons</string>

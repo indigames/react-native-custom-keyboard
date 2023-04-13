@@ -103,6 +103,8 @@ export default function App() {
       }
     });
 
+    CustomKeyboard.syncNativeInput();
+
     return () => {
       appStateSubscription.remove();
       subscription.remove();

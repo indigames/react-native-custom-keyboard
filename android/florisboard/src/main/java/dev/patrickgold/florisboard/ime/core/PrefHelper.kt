@@ -61,6 +61,12 @@ class PrefHelper(
                 (cacheInt[key] ?: getPrefInternal(key, default)) as T
             }
             "" is T -> {
+                val value: T
+                if (cacheString[key] == null || cacheString[key] == "") {
+                    value = getPrefInternal(key, default)
+                    cacheString[key] = value as String
+                    return value
+                }
                 (cacheString[key] ?: getPrefInternal(key, default)) as T
             }
             else -> null as T

@@ -34,9 +34,9 @@ class SmartbarView : LinearLayout {
 
     private val smartbarManager = SmartbarManager.getInstance()
 
-    var candidatesView: LinearLayout? = null
+    var syncView: LinearLayout? = null
         private set
-    var candidateViewList: MutableList<Button> = mutableListOf()
+    var syncButton: Button? = null
         private set
     var numberRowView: LinearLayout? = null
         private set
@@ -54,10 +54,8 @@ class SmartbarView : LinearLayout {
 
         super.onAttachedToWindow()
 
-        candidatesView = findViewById(R.id.candidates)
-        candidateViewList.add(findViewById(R.id.candidate0))
-        candidateViewList.add(findViewById(R.id.candidate1))
-        candidateViewList.add(findViewById(R.id.candidate2))
+        syncView = findViewById(R.id.sync_action)
+        syncButton = findViewById(R.id.sync_button)
 
         numberRowView = findViewById(R.id.number_row)
         quickActionsView = findViewById(R.id.quick_actions)

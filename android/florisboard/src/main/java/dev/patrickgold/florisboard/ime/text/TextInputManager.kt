@@ -232,13 +232,20 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
     }
 
     override fun onWindowHidden() {
-        florisboard.prefs.input.text = this.inputText
-        this.inputText = ""
+        syncInput()
         super.onWindowHidden()
+    }
+    
+    fun syncInput() {
+        florisboard.prefs.input.text = florisboard.prefs.input.text + this.inputText
     }
 
     override fun onWindowShown() {
         keyboardViews[KeyboardMode.CHARACTERS]?.updateVisibility()
+        if (florisboard.prefs.input.text.isEmpty()) {
+            this.inputText = ""
+            smartbarManager.generateCandidatesFromComposing(this.inputText)
+        }
     }
 
     /**
@@ -303,7 +310,6 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
             } else {
                 resetComposingText()
             }
-            smartbarManager.generateCandidatesFromComposing(composingText)
         }
         isTextSelected = cursorAnchorInfo.selectionEnd - cursorAnchorInfo.selectionStart != 0
         updateCapsState()
@@ -576,6 +582,7 @@ class TextInputManager private constructor() : CoroutineScope by MainScope(),
                                     false -> text.toLowerCase(Locale.getDefault())
                                 }
                                 this.inputText = this.inputText + text
+                                smartbarManager.generateCandidatesFromComposing(this.inputText)
                                 ic?.commitText(text, 1)
                             }
                         }

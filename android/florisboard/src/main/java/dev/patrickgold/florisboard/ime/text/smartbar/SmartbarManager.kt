@@ -1,6 +1,8 @@
 package dev.patrickgold.florisboard.ime.text.smartbar
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.view.textservice.SentenceSuggestionsInfo
@@ -32,6 +34,18 @@ class SmartbarManager private constructor() :
 
     var activeContainerId: Int = R.id.candidates
         set(value) { field = value; updateActiveContainerVisibility() }
+    
+    private val syncButtonOnClickListener = View.OnClickListener { v ->
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "syncButtonOnClickListener()")
+        
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("example://test"))
+        browserIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        florisboard.context.startActivity(browserIntent)
+    }
+    
+    private val syncButtonOnLongClickListener = View.OnLongClickListener { v ->
+        true
+    }
 
     private val candidateViewOnClickListener = View.OnClickListener { v ->
         val view = v as Button
@@ -107,10 +121,9 @@ class SmartbarManager private constructor() :
                 numberRowButton.setOnClickListener(numberRowButtonOnClickListener)
             }
         }
-        for (candidateView in smartbarView.candidateViewList) {
-            candidateView.setOnClickListener(candidateViewOnClickListener)
-            candidateView.setOnLongClickListener(candidateViewOnLongClickListener)
-        }
+        
+        smartbarView.syncButton?.setOnClickListener(syncButtonOnClickListener)
+        smartbarView.syncButton?.setOnLongClickListener(syncButtonOnLongClickListener)
     }
 
     // TODO: clean up resources here
@@ -182,31 +195,16 @@ class SmartbarManager private constructor() :
     fun generateCandidatesFromComposing(composingText: String?) {
         val smartbarView = smartbarView ?: return
 
-        if (composingText == null) {
-            smartbarView.candidateViewList[0].text = "candidate"
-            smartbarView.candidateViewList[1].text = "suggestions"
-            smartbarView.candidateViewList[2].text = "nyi"
-        } else {
-            activeContainerId = R.id.candidates
-            updateActiveContainerVisibility()
-            smartbarView.candidateViewList[0].text = ""
-            smartbarView.candidateViewList[1].text = composingText + "test"
-            smartbarView.candidateViewList[2].text = ""
+        if (composingText == null || composingText.isEmpty()) {
+            // TODO: Use resource string
+            smartbarView.syncButton?.text = "Type something..."
+            return
         }
-        //spellCheckerSession?.getSentenceSuggestions(arrayOf(TextInfo(composing)), 3)
-        //android.util.Log.i("SPELL", "GEN")
-        /*val dic: Uri = UserDictionary.Words.CONTENT_URI
-        val resolver: ContentResolver = florisboard.contentResolver
-        val cursor: Cursor = resolver.query(dic, null, null, null, null) ?: return
-        var count = 0
-        while (cursor.moveToNext()) {
-            val word = cursor.getString(cursor.getColumnIndex(UserDictionary.Words.WORD))
-            candidateViewList[count].text = word
-            if (count++ > 2) {
-                break
-            }
-        }
-        cursor.close()*/
+        
+        activeContainerId = R.id.sync_action
+        updateActiveContainerVisibility()
+        val pointText = "point${if (composingText.length > 1) "s" else ""}"
+        smartbarView.syncButton?.text = smartbarView.resources.getString(R.string.sync_button__label, composingText.length, pointText)
     }
 
     fun writeCandidate(candidate: String) {
@@ -228,25 +226,25 @@ class SmartbarManager private constructor() :
 
         when (activeContainerId) {
             R.id.quick_actions -> {
-                smartbarView.candidatesView?.visibility = View.GONE
+                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.VISIBLE
                 smartbarView.quickActionToggle?.rotation = -180.0f
             }
             R.id.number_row -> {
-                smartbarView.candidatesView?.visibility = View.GONE
+                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.VISIBLE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f
             }
-            R.id.candidates -> {
-                smartbarView.candidatesView?.visibility = View.VISIBLE
+            R.id.sync_action -> {
+                smartbarView.syncView?.visibility = View.VISIBLE
                 smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f
             }
             else -> {
-                smartbarView.candidatesView?.visibility = View.GONE
+                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f

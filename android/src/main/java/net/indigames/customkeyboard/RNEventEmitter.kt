@@ -32,6 +32,13 @@ class RNEventEmitter(reactContext: ReactApplicationContext) :
         if (input == "") return;
         sendEvent("syncInputEvent", input)
     }
+    
+    @ReactMethod
+    fun updateHasSyncedInput(promise: Promise) {
+        if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "updateHasSyncedInput")
+        prefs.input.text = ""
+        promise.resolve(null)
+    }
 
     companion object {
         const val NAME = "RNEventEmitter"
