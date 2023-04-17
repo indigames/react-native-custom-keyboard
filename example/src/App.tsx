@@ -83,12 +83,6 @@ export default function App() {
       .getFullAccessState()
       .then(setIsKeyboardHasFullAccess);
 
-    AsyncStorage.getItem('@imageIndex').then((indexStr) => {
-      var index = indexStr ? parseInt(indexStr) : 0;
-
-      updateImageWithIndex(index);
-    });
-
     var subscription = CustomKeyboard.events().characterEntered(async (character) => {
       console.log('character', character);
       await CustomKeyboard.updateHasSynced()

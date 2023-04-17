@@ -19,6 +19,8 @@ package dev.patrickgold.florisboard.ime.core
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.inputmethodservice.InputMethodService
 import android.media.AudioManager
@@ -167,7 +169,7 @@ class FlorisBoard : InputMethodService() {
         view?.background = if (currentBackgroundPath != "") {
             Drawable.createFromPath(currentBackgroundPath)
         } else {
-            null
+            ColorDrawable(context.getColor(R.color.defaultBackgroundColor))
         }
 
         textInputManager.onCreateInputView()
