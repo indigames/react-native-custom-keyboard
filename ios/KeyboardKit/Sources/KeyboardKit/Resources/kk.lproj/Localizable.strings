@@ -1,0 +1,23 @@
+/*
+ Localizable.strings
+ KeyboardKit
+ 
+ Created by Daniel Saidi on 2022-12-31.
+ Copyright © 2022 Daniel Saidi. All rights reserved.
+ */
+
+"locale" = "kk";
+
+"done" = "Болды";
+"go" = "Алға";
+"join" = "join";
+"ok" = "OK";
+"return" = "⮐";
+"search" = "Іздеу";
+"space" = "бос орын";
+
+"keyboardTypeAlphabetic" = "АБВ";
+"keyboardTypeNumeric" = "123";
+"keyboardTypeSymbolic" = "#+=";
+
+"searchEmoji" = "Emoji Табу";
