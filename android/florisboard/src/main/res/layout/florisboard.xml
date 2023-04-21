@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.patrickgold.florisboard.ime.core.InputView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/florisboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/inner_input_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:baselineAligned="false">
+
+        <LinearLayout
+                android:id="@+id/one_handed_ctrl_panel_start"
+                style="@style/OneHandedPanel"
+                android:visibility="gone">
+
+            <ImageButton
+                    android:id="@+id/one_handed_ctrl_close_start"
+                    style="@style/OneHandedPanelButton"
+                    android:src="@drawable/ic_zoom_out_map" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/one_handed_button_height"
+                    android:visibility="invisible" />
+
+            <ImageButton
+                    android:id="@+id/one_handed_ctrl_move_start"
+                    style="@style/OneHandedPanelButton"
+                    android:src="@drawable/ic_keyboard_arrow_left" />
+
+        </LinearLayout>
+
+        <ViewFlipper
+                android:id="@+id/main_view_flipper"
+                android:background="?keyboard_bgColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:measureAllChildren="false">
+
+            <include layout="@layout/text_input_layout" />
+
+            <include layout="@layout/media_input_layout" />
+
+        </ViewFlipper>
+
+        <LinearLayout
+                android:id="@+id/one_handed_ctrl_panel_end"
+                style="@style/OneHandedPanel"
+                android:visibility="gone">
+
+            <ImageButton
+                    android:id="@+id/one_handed_ctrl_close_end"
+                    style="@style/OneHandedPanelButton"
+                    android:src="@drawable/ic_zoom_out_map" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/one_handed_button_height"
+                    android:visibility="invisible" />
+
+            <ImageButton
+                    android:id="@+id/one_handed_ctrl_move_end"
+                    style="@style/OneHandedPanelButton"
+                    android:src="@drawable/ic_keyboard_arrow_right" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</dev.patrickgold.florisboard.ime.core.InputView>

@@ -3,10 +3,11 @@ import {
   NativeEventEmitter,
   EventEmitter,
   EmitterSubscription,
-  NativeModule
+  NativeModule,
 } from 'react-native';
 
 interface NativeEmitterModule extends NativeModule {
+  updateHasSyncedInput(): Promise<void>;
   syncNativeInput(): void;
 }
 
@@ -22,8 +23,15 @@ export class NativeEventsReceiver {
     this.nativeEmitterModule.syncNativeInput();
   }
 
-  public characterEntered(callback: (character: string) => void): EmitterSubscription {
-    console.log("adding listener for syncInputEvent");
-    return this.emitter.addListener('syncInputEvent', callback);
+  public updateHasSynced(): Promise<void> {
+    return this.nativeEmitterModule.updateHasSyncedInput();
+  }
+
+  public characterEntered(
+    callback: (character: string) => void
+  ): EmitterSubscription {
+    return this.emitter.addListener('syncInputEvent', (character: any) => {
+      callback(character);
+    });
   }
 }

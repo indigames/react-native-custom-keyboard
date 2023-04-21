@@ -13,7 +13,7 @@ class RNEventEmitter: RCTEventEmitter {
     static var initialShare: (UIApplication, URL, [UIApplication.OpenURLOptionsKey : Any])?
     
     var hasListeners = false
-    
+    var userDefaults: UserDefaults? = nil
     var _targetUrlScheme: String?
     var targetUrlScheme: String
     {
@@ -23,7 +23,17 @@ class RNEventEmitter: RCTEventEmitter {
     }
     
     public override init() {
+        let appGroupId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String
+        if (appGroupId == nil) {
+            print("RNEventEmitter::Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
+        }
+        if let userDefaults = UserDefaults(suiteName: appGroupId) {
+            self.userDefaults = userDefaults
+        } else {
+            print("RNEventEmitter::Error: \(NO_APP_GROUP_ERROR)")
+        }
         super.init()
+        
         RNEventEmitter._shared = self
         
         // if already has app, url, options from previous linking
@@ -94,20 +104,10 @@ class RNEventEmitter: RCTEventEmitter {
     }
     
     func getInputTextFromUserDefaults() -> String? {
-        guard let containerId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String else {
-            print("RNEventEmitter::Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
-            return nil
-        }
-        
-        guard let userDefaults = UserDefaults(suiteName: containerId) else {
-            print("RNEventEmitter::Error: \(NO_APP_GROUP_ERROR)")
-            return nil
-        }
-        
-        guard let input = userDefaults.object(forKey: USER_DEFAULTS_KEY) as? String else {
+        guard let input = self.userDefaults?.object(forKey: USER_DEFAULTS_KEY) as? String else {
             print("RNEventEmitter::Error: \(NO_INPUT_DATA_ERROR)")
-            userDefaults.set("", forKey: USER_DEFAULTS_KEY)
-            userDefaults.synchronize()
+            self.userDefaults?.set("", forKey: USER_DEFAULTS_KEY)
+            self.userDefaults?.synchronize()
             return nil
         }
         
@@ -116,8 +116,6 @@ class RNEventEmitter: RCTEventEmitter {
             return nil
         }
         
-        userDefaults.set("", forKey: USER_DEFAULTS_KEY)
-        userDefaults.synchronize()
         return input
     }
     
@@ -128,6 +126,12 @@ class RNEventEmitter: RCTEventEmitter {
             print("RNEventEmitter::syncNativeInput::with: \(input)")
             raiseSyncInputEvent(with: input)
         }
+    }
+    
+    @objc func updateHasSyncedInput(_ resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        self.userDefaults?.set("", forKey: USER_DEFAULTS_KEY)
+        self.userDefaults?.synchronize()
+        resolve(nil)
     }
     
     func raiseSyncInputEvent(with input: String) {

@@ -1,12 +1,13 @@
 import SwiftUI
 open class CustomKeyboardViewController: KeyboardInputViewController {
-    var hostAppId: String?
+    var appGroupId: String?
     var hostAppUrlScheme: String?
     var customActionHandler: DemoKeyboardActionHandler?
+    var userDefault: UserDefaults?
     
     open override func viewDidLoad() {
-        if let hostAppId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String {
-            self.hostAppId = hostAppId
+        if let appGroupId = Bundle.main.object(forInfoDictionaryKey: HOST_APP_IDENTIFIER_INFO_PLIST_KEY) as? String {
+            self.appGroupId = appGroupId
         } else {
             print("Error: \(NO_INFO_PLIST_INDENTIFIER_ERROR)")
         }
@@ -26,15 +27,53 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
         super.viewDidLoad()
     }
     
+    private var demoKeyboardView: DemoKeyboardView?
     open override func viewWillSetupKeyboard() {
         super.viewWillSetupKeyboard()
+        demoKeyboardView = DemoKeyboardView(controller: self, actionHandler: self.customActionHandler!)
+        setup(with: self.demoKeyboardView)
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let userDefaults = getUserDefaults() else {
+            print("Cannot get user defaults.")
+            return
+        }
         
-        setup(with: DemoKeyboardView(controller: self, actionHandler: self.customActionHandler!))
+        if let backgroundPath = userDefaults.object(forKey: USER_DEFAULTS_BACKGROUND_PATH) as? String {
+            self.demoKeyboardView?.backgroundPath = backgroundPath
+//            (keyboardAppearance as! DemoKeyboardAppearance).backgroundImage(for: backgroundPath)
+        } else {
+            userDefaults.set("", forKey: USER_DEFAULTS_BACKGROUND_PATH)
+            userDefaults.synchronize()
+        }
+        
+        if self.userDefault?.object(forKey: USER_DEFAULTS_KEY) is String {
+            self.customActionHandler?.input = ""
+        }
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         syncInputToUserDefaults(customActionHandler?.input ?? "")
+    }
+    
+    private func getUserDefaults() -> UserDefaults? {
+        guard let appGroupId = self.appGroupId else {
+            print(NO_INFO_PLIST_INDENTIFIER_ERROR)
+            return nil
+        }
+        
+        if self.userDefault == nil {
+            guard let userDefaults = UserDefaults(suiteName: appGroupId) else {
+                print(NO_APP_GROUP_ERROR)
+                return nil
+            }
+            self.userDefault = userDefaults
+        }
+        
+        return self.userDefault
     }
     
     public func syncInputToUserDefaults(_ input: String) {
@@ -43,16 +82,11 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
             return
         }
         
-        guard let hostAppId = self.hostAppId else {
-            print(NO_INFO_PLIST_INDENTIFIER_ERROR)
+        guard let userDefaults = getUserDefaults() else {
+            print("Cannot get user defaults.")
             return
         }
-        
-        guard let userDefaults = UserDefaults(suiteName: hostAppId) else {
-            print(NO_APP_GROUP_ERROR)
-            return
-        }
-        
+       
         var allInput = input
         if let containerInput = userDefaults.object(forKey: USER_DEFAULTS_KEY) as? String {
             allInput.append(containerInput)
@@ -60,7 +94,6 @@ open class CustomKeyboardViewController: KeyboardInputViewController {
             print("CustomKeyboardViewController::warning: \(NO_INPUT_DATA_ERROR) (It is safe to skip this warning)")
         }
         
-        // print("CustomKeyboardViewController::sync input container \(userDefaults) with key \(USER_DEFAULTS_KEY) and value \(allInput)")
         userDefaults.set(allInput, forKey: USER_DEFAULTS_KEY)
         userDefaults.synchronize()
     }

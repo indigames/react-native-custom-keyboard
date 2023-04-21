@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.net.indigames.example</string>
+		<string>group.net.indigames.customkeyboardexample</string>
 	</array>
 </dict>
 </plist>

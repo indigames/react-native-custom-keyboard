@@ -1,4 +1,4 @@
-import { CustomKeyboardRoot } from "./CustomKeyboard";
+import { CustomKeyboardRoot } from './CustomKeyboard';
 const customKeyboardSingleton = new CustomKeyboardRoot();
 
-export const CustomKeyboard = customKeyboardSingleton ;
+export const CustomKeyboard = customKeyboardSingleton;
