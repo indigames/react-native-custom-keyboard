@@ -331,7 +331,7 @@ PODS:
     - glog
   - react-native-blob-util (0.17.3):
     - React-Core
-  - react-native-custom-keyboard (0.2.2):
+  - react-native-custom-keyboard (0.2.5):
     - React-Core
   - React-perflogger (0.71.4)
   - React-RCTActionSheet (0.71.4):
@@ -617,7 +617,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-blob-util: 99f4d79189252f597fe0d810c57a3733b1b1dea6
-  react-native-custom-keyboard: 9684dd03b1db940a410fa55cd381131c38d0508f
+  react-native-custom-keyboard: 654ec7438d841d52b4fb5acfed2002a21f78c789
   React-perflogger: 0bb0522a12e058f6eb69d888bc16f40c16c4b907
   React-RCTActionSheet: bfd675a10f06a18728ea15d82082d48f228a213a
   React-RCTAnimation: 2fa220b2052ec75b733112aca39143d34546a941
