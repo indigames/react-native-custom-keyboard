@@ -8,16 +8,19 @@ interface NativeCustomeKeyboardModule {
   getActiveState(): Promise<boolean>;
   getFullAccessState(): Promise<boolean>;
   setBackground(backgroundFilePath: string): void;
+
+  openKeyboardSettings(): void;
+  openInputSettings(): void;
 }
 
 export class NativeCustomKeyboard {
-  private readonly nativeCommandsModule: NativeCustomeKeyboardModule;
+  private readonly nativeModule: NativeCustomeKeyboardModule;
   constructor() {
-    this.nativeCommandsModule = NativeModules.RNCustomKeyboard;
+    this.nativeModule = NativeModules.RNCustomKeyboard;
   }
 
   public setBackground(backgroundFilePath: string) {
-    this.nativeCommandsModule.setBackground(backgroundFilePath);
+    this.nativeModule.setBackground(backgroundFilePath);
   }
 
   /**
@@ -26,21 +29,29 @@ export class NativeCustomKeyboard {
    * @return {string}  {app group shared container path}
    * @memberof NativeCustomKeyboard
    */
-  getPathForAppGroup(): string {
+  public getPathForAppGroup(): string {
     if (Platform.OS === 'ios')
-      return this.nativeCommandsModule.getPathForAppGroup();
+      return this.nativeModule.getPathForAppGroup();
     return '';
   }
 
+  public openKeyboardSettings() {
+    this.nativeModule.openKeyboardSettings();
+  }
+
+  public openInputSettings(): void {
+    this.nativeModule.openInputSettings();
+  }
+
   public getEnableState(): Promise<boolean> {
-    return this.nativeCommandsModule.getEnableState();
+    return this.nativeModule.getEnableState();
   }
 
   public getActiveState(): Promise<boolean> {
-    return this.nativeCommandsModule.getActiveState();
+    return this.nativeModule.getActiveState();
   }
 
   public getFullAccessState(): Promise<boolean> {
-    return this.nativeCommandsModule.getFullAccessState();
+    return this.nativeModule.getFullAccessState();
   }
 }

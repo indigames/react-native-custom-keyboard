@@ -25,6 +25,14 @@ export class CustomKeyboardRoot {
     return this.nativeCustomKeyboard.getPathForAppGroup();
   }
 
+  public openKeyboardSettings(): void {
+    this.nativeCustomKeyboard.openKeyboardSettings();
+  }
+
+  public openInputSettings(): void {
+    this.nativeCustomKeyboard.openInputSettings();
+  }
+
   public updateHasSynced(): Promise<void> {
     return this.eventsRegistry.updateHasSynced();
   }

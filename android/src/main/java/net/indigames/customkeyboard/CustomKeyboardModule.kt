@@ -1,8 +1,11 @@
 package net.indigames.customkeyboard
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.provider.Settings
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -51,6 +54,20 @@ class CustomKeyboardModule(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun getFullAccessState(promise: Promise) {
         promise.resolve(true)
+    }
+    
+    @ReactMethod
+    fun openKeyboardSettings() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_INPUT_METHOD_SETTINGS
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        this.currentActivity?.startActivity(intent)
+    }
+    
+    @ReactMethod
+    fun openInputSettings() {
+        val inputMethodManager = this.currentActivity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showInputMethodPicker()
     }
 
     companion object {

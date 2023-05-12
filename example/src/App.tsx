@@ -230,9 +230,15 @@ export default function App() {
           {!isKeyboardActive ? (
             <Button
               title="Open keyboard settings"
-              onPress={openKeyboardSettings}
+              onPress={() => CustomKeyboard.openKeyboardSettings()}
             />
           ) : null}
+
+          <Button
+            title="Open Input settings"
+            onPress={() => CustomKeyboard.openInputSettings()}
+          />
+
           <Button
             title="Sync input"
             onPress={() => CustomKeyboard.syncNativeInput()}
