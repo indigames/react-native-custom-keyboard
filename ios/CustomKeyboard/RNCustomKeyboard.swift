@@ -1,3 +1,5 @@
+import SwiftUI
+
 @objc(RNCustomKeyboard)
 class RNCustomKeyboard: NSObject {
     @objc func setBackground(_ backgroundPath: String) {
@@ -45,5 +47,16 @@ class RNCustomKeyboard: NSObject {
         let keyboardBundleId = "\(Bundle.main.bundleIdentifier!).*"
         print("keyboardBundleId \(keyboardBundleId)")
         resolve(KeyboardEnabledState(bundleId: keyboardBundleId).isFullAccessEnabled)
+    }
+    
+    @objc func openKeyboardSettings() {
+        // General&path=Keyboard/KEYBOARDS
+        guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingUrl) {
+            UIApplication.shared.open(settingUrl)
+        }
     }
 }

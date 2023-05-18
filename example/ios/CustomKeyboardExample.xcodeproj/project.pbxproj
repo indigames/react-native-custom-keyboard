@@ -11,6 +11,7 @@
 		1235035329E024B10050546E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		124094A729CC552000C357FF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124094A629CC552000C357FF /* KeyboardViewController.swift */; };
 		12858BEE29CC110A004F1DC1 /* KYBD.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 12858BE729CC110A004F1DC1 /* KYBD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		12ADF5D92A161BC70042F938 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 12ADF5D82A161BC70042F938 /* Settings.bundle */; };
 		12F50CCC29CC295C00603AB2 /* KeyboardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12F50CCB29CC295C00603AB2 /* KeyboardKit */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -62,6 +63,7 @@
 		124094E229CEA7CE00C357FF /* KYBD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KYBD.entitlements; sourceTree = "<group>"; };
 		12858BE729CC110A004F1DC1 /* KYBD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KYBD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		12858BEB29CC110A004F1DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12ADF5D82A161BC70042F938 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		12F50CCA29CC294B00603AB2 /* KeyboardKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeyboardKit; path = ../../ios/KeyboardKit; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CustomKeyboardExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboardExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CustomKeyboardExample/AppDelegate.h; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				12ADF5D82A161BC70042F938 /* Settings.bundle */,
 				12F50CC829CC28C500603AB2 /* Packages */,
 				13B07FAE1A68108700A75B9A /* CustomKeyboardExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -256,6 +259,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				12ADF5D72A1617970042F938 /* PBXTargetDependency */,
 			);
 			name = KYBD;
 			packageProductDependencies = (
@@ -352,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				12ADF5D92A161BC70042F938 /* Settings.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,6 +590,10 @@
 			isa = PBXTargetDependency;
 			target = 12858BE629CC110A004F1DC1 /* KYBD */;
 			targetProxy = 12858BEC29CC110A004F1DC1 /* PBXContainerItemProxy */;
+		};
+		12ADF5D72A1617970042F938 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 12ADF5D62A1617970042F938 /* KeyboardKit */;
 		};
 /* End PBXTargetDependency section */
 
@@ -973,6 +982,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		12ADF5D62A1617970042F938 /* KeyboardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyboardKit;
+		};
 		12F50CCB29CC295C00603AB2 /* KeyboardKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KeyboardKit;
