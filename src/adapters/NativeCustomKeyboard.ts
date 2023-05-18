@@ -40,6 +40,10 @@ export class NativeCustomKeyboard {
   }
 
   public openInputSettings(): void {
+    if (Platform.OS === 'ios') {
+      console.warn('openInputSettings is not supported on iOS');
+      return;
+    }
     this.nativeModule.openInputSettings();
   }
 

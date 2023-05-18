@@ -16,6 +16,8 @@ RCT_EXTERN_METHOD(getActiveState:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(getFullAccessState:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(openKeyboardSettings)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
