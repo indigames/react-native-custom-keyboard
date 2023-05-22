@@ -105,14 +105,6 @@ export default function App() {
     };
   }, []);
 
-  const openKeyboardSettings = useCallback(() => {
-    if (Platform.OS === 'ios') {
-      Linking.openURL('App-Prefs:root=General&path=Keyboard');
-    } else {
-      Linking.sendIntent('android.settings.INPUT_METHOD_SETTINGS');
-    }
-  }, []);
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -217,7 +209,7 @@ export default function App() {
               />
             </View>
             <View style={{ flex: 1 }}>
-              <Text>Result: {input}</Text>
+              <Text>Result ({input.length}): {input.length > 50 ? input.substring(0, 50) + '...' : input}</Text>
             </View>
           </View>
           <TextInput

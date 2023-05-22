@@ -91,6 +91,7 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
         if (pressedCharacter == releasedCharacter) {
             print("DemoKeyboardActionHandler::releaseAction::just pressed character \(pressedCharacter)")
             self.input.append(pressedCharacter)
+            pressedCharacter = "";
         }
     }
     
@@ -105,7 +106,7 @@ class DemoKeyboardActionHandler: StandardKeyboardActionHandler {
             return
         }
         guard let viewController = keyboardController as? CustomKeyboardViewController else {
-            self.alert("Cannot communitcate with view controller")
+            self.alert("Cannot communicate with view controller")
             return
         }
         
