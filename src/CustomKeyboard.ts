@@ -21,7 +21,7 @@ export class CustomKeyboardRoot {
     this.nativeCustomKeyboard.setBackground(backgroundFilePath);
   }
 
-  public getPathForAppGroup(): string {
+  public getPathForAppGroup(): Promise<string> {
     return this.nativeCustomKeyboard.getPathForAppGroup();
   }
 

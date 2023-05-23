@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import { NativeModules } from 'react-native';
 
 interface NativeCustomeKeyboardModule {
-  getPathForAppGroup(): string;
+  getPathForAppGroup(): Promise<string>;
   setTheme(selectedItem: string): void;
   getEnableState(): Promise<boolean>;
   getActiveState(): Promise<boolean>;
@@ -29,10 +29,10 @@ export class NativeCustomKeyboard {
    * @return {string}  {app group shared container path}
    * @memberof NativeCustomKeyboard
    */
-  public getPathForAppGroup(): string {
+  public getPathForAppGroup(): Promise<string> {
     if (Platform.OS === 'ios')
       return this.nativeModule.getPathForAppGroup();
-    return '';
+    return new Promise((resolve, reject) => { resolve(''); });
   }
 
   public openKeyboardSettings() {
