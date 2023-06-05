@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,7 +9,6 @@ import {
   Keyboard,
   Text,
   Button,
-  Linking,
   Image,
   AppState,
 } from 'react-native';
@@ -40,7 +39,8 @@ export default function App() {
     // CustomKeyboard.setBackground already cached the image within app group container on iOS
     const appGroupPath = await CustomKeyboard.getPathForAppGroup();
     const fileName = url.substring(url.lastIndexOf('/') + 1);
-    const overridePath = Platform.OS == 'ios' ? `${appGroupPath}/${fileName}` : undefined;
+    const overridePath =
+      Platform.OS == 'ios' ? `${appGroupPath}/${fileName}` : undefined;
     console.log('override path', overridePath);
     const config: ReactNativeBlobUtilConfig = {
       fileCache: true,
@@ -83,19 +83,24 @@ export default function App() {
       .getFullAccessState()
       .then(setIsKeyboardHasFullAccess);
 
-    var subscription = CustomKeyboard.events().characterEntered(async (character) => {
-      console.log('character', character);
-      await CustomKeyboard.updateHasSynced()
-      // only open keyboard after in synced
-      setInput("" + character);
-    });
-
-    const appStateSubscription = AppState.addEventListener('change', nextAppState => {
-      console.log('nextAppState', nextAppState);
-      if (nextAppState === 'active') {
-        CustomKeyboard.syncNativeInput();
+    var subscription = CustomKeyboard.events().characterEntered(
+      async (character) => {
+        console.log('character', character);
+        await CustomKeyboard.updateHasSynced();
+        // only open keyboard after in synced
+        setInput('' + character);
       }
-    });
+    );
+
+    const appStateSubscription = AppState.addEventListener(
+      'change',
+      (nextAppState) => {
+        console.log('nextAppState', nextAppState);
+        if (nextAppState === 'active') {
+          CustomKeyboard.syncNativeInput();
+        }
+      }
+    );
 
     CustomKeyboard.syncNativeInput();
 
@@ -131,8 +136,9 @@ export default function App() {
             {backgroundPath ? (
               <Image
                 source={{
-                  uri: `${Platform.OS === 'android' ? 'file://' : ''
-                    }${backgroundPath}`,
+                  uri: `${
+                    Platform.OS === 'android' ? 'file://' : ''
+                  }${backgroundPath}`,
                 }}
                 style={{ width: '100%', height: 150 }}
               />
@@ -209,7 +215,10 @@ export default function App() {
               />
             </View>
             <View style={{ flex: 1 }}>
-              <Text>Result ({input.length}): {input.length > 50 ? input.substring(0, 50) + '...' : input}</Text>
+              <Text>
+                Result ({input.length}):{' '}
+                {input.length > 50 ? input.substring(0, 50) + '...' : input}
+              </Text>
             </View>
           </View>
           <TextInput
