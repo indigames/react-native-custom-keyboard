@@ -54,9 +54,6 @@ class SmartbarView : LinearLayout {
 
         super.onAttachedToWindow()
 
-        syncView = findViewById(R.id.sync_action)
-        syncButton = findViewById(R.id.sync_button)
-
         numberRowView = findViewById(R.id.number_row)
         quickActionsView = findViewById(R.id.quick_actions)
         quickActionToggle = findViewById(R.id.quick_action_toggle)

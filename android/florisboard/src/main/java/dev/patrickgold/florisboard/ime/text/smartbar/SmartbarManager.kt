@@ -194,17 +194,6 @@ class SmartbarManager private constructor() :
 
     fun generateCandidatesFromComposing(composingText: String?) {
         val smartbarView = smartbarView ?: return
-
-        if (composingText == null || composingText.isEmpty()) {
-            // TODO: Use resource string
-            smartbarView.syncButton?.text = "Type something..."
-            return
-        }
-        
-        activeContainerId = R.id.sync_action
-        updateActiveContainerVisibility()
-        val pointText = "point${if (composingText.length > 1) "s" else ""}"
-        smartbarView.syncButton?.text = smartbarView.resources.getString(R.string.sync_button__label, composingText.length, pointText)
     }
 
     fun writeCandidate(candidate: String) {
@@ -234,12 +223,6 @@ class SmartbarManager private constructor() :
             R.id.number_row -> {
                 smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.VISIBLE
-                smartbarView.quickActionsView?.visibility = View.GONE
-                smartbarView.quickActionToggle?.rotation = 0.0f
-            }
-            R.id.sync_action -> {
-                smartbarView.syncView?.visibility = View.VISIBLE
-                smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f
             }
