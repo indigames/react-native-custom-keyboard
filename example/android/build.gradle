@@ -26,5 +26,8 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+        maven {
+            url("${project(':react-native-background-fetch').projectDir}/libs")
+        }
     }
 }

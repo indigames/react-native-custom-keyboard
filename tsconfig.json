@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-custom-keyboard": ["./src/index"]
+      "react-native-custom-keyboard": ["./src/index.ts"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -10,8 +10,8 @@
     "importsNotUsedAsValues": "preserve",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["esnext"],
-    "module": "esnext",
+    "lib": ["ESNext"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
@@ -23,6 +23,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "ESNext"
   }
 }
