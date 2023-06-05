@@ -30,9 +30,10 @@ export class NativeCustomKeyboard {
    * @memberof NativeCustomKeyboard
    */
   public getPathForAppGroup(): Promise<string> {
-    if (Platform.OS === 'ios')
-      return this.nativeModule.getPathForAppGroup();
-    return new Promise((resolve, reject) => { resolve(''); });
+    if (Platform.OS === 'ios') return this.nativeModule.getPathForAppGroup();
+    return new Promise((resolve) => {
+      resolve('');
+    });
   }
 
   public openKeyboardSettings() {
