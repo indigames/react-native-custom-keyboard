@@ -34,15 +34,15 @@ class SmartbarManager private constructor() :
 
     var activeContainerId: Int = R.id.candidates
         set(value) { field = value; updateActiveContainerVisibility() }
-    
+
     private val syncButtonOnClickListener = View.OnClickListener { v ->
         if (BuildConfig.DEBUG) Log.i(this::class.simpleName, "syncButtonOnClickListener()")
-        
+
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("example://test"))
         browserIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         florisboard.context.startActivity(browserIntent)
     }
-    
+
     private val syncButtonOnLongClickListener = View.OnLongClickListener { v ->
         true
     }
@@ -121,9 +121,9 @@ class SmartbarManager private constructor() :
                 numberRowButton.setOnClickListener(numberRowButtonOnClickListener)
             }
         }
-        
-        smartbarView.syncButton?.setOnClickListener(syncButtonOnClickListener)
-        smartbarView.syncButton?.setOnLongClickListener(syncButtonOnLongClickListener)
+
+//        smartbarView.syncButton?.setOnClickListener(syncButtonOnClickListener)
+//        smartbarView.syncButton?.setOnLongClickListener(syncButtonOnLongClickListener)
     }
 
     // TODO: clean up resources here
@@ -197,14 +197,14 @@ class SmartbarManager private constructor() :
 
         if (composingText == null || composingText.isEmpty()) {
             // TODO: Use resource string
-            smartbarView.syncButton?.text = "Type something..."
+//            smartbarView.syncButton?.text = "Type something..."
             return
         }
-        
-        activeContainerId = R.id.sync_action
+
+//        activeContainerId = R.id.sync_action
         updateActiveContainerVisibility()
         val pointText = "point${if (composingText.length > 1) "s" else ""}"
-        smartbarView.syncButton?.text = smartbarView.resources.getString(R.string.sync_button__label, composingText.length, pointText)
+//        smartbarView.syncButton?.text = smartbarView.resources.getString(R.string.sync_button__label, composingText.length, pointText)
     }
 
     fun writeCandidate(candidate: String) {
@@ -226,25 +226,25 @@ class SmartbarManager private constructor() :
 
         when (activeContainerId) {
             R.id.quick_actions -> {
-                smartbarView.syncView?.visibility = View.GONE
+//                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.VISIBLE
                 smartbarView.quickActionToggle?.rotation = -180.0f
             }
             R.id.number_row -> {
-                smartbarView.syncView?.visibility = View.GONE
+//                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.VISIBLE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f
             }
-            R.id.sync_action -> {
-                smartbarView.syncView?.visibility = View.VISIBLE
-                smartbarView.numberRowView?.visibility = View.GONE
-                smartbarView.quickActionsView?.visibility = View.GONE
-                smartbarView.quickActionToggle?.rotation = 0.0f
-            }
+//            R.id.sync_action -> {
+//                smartbarView.syncView?.visibility = View.VISIBLE
+//                smartbarView.numberRowView?.visibility = View.GONE
+//                smartbarView.quickActionsView?.visibility = View.GONE
+//                smartbarView.quickActionToggle?.rotation = 0.0f
+//            }
             else -> {
-                smartbarView.syncView?.visibility = View.GONE
+//                smartbarView.syncView?.visibility = View.GONE
                 smartbarView.numberRowView?.visibility = View.GONE
                 smartbarView.quickActionsView?.visibility = View.GONE
                 smartbarView.quickActionToggle?.rotation = 0.0f
