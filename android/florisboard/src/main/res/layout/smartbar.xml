@@ -35,16 +35,6 @@
             style="@style/SmartbarCandidate" />
 
     </LinearLayout>
-    
-    <LinearLayout
-            android:id="@+id/sync_action"
-            style="@style/SmartbarContainer"
-            android:visibility="visible">
-        <Button
-            android:id="@+id/sync_button"
-            style="@style/SmartbarCandidate" />
-        
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/quick_actions"
